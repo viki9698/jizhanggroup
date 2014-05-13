@@ -16,7 +16,7 @@ class Bill(models.Model):
     title=models.CharField(max_length=20)
     description=models.CharField(max_length=100)
     create_date = models.DateField()
-    group = models.ForeighKey(Group)
+    group = models.ForeignKey(Group)
     
 class BillItem(models.Model):
     user = models.ForeignKey(User)
