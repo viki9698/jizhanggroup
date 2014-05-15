@@ -6,6 +6,8 @@ class Group(models.Model):
     description=models.CharField(max_length=100)
     create_date=models.DateField()
     group_type = models.CharField(max_length=10)
+    def __unicode__(__self):
+        return __self.name
 
 class User(models.Model):
     username=models.CharField(max_length=20)
