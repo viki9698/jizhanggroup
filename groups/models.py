@@ -1,10 +1,11 @@
 from django.db import models
-
+import datetime
 # Create your models here.
 class Group(models.Model):
     name=models.CharField(max_length=100)
     description=models.CharField(max_length=100)
-    create_date=models.DateField()
+    create_date=models.DateField('date published', blank=True, 
+        default=datetime.datetime.now().date())
     group_type = models.CharField(max_length=10)
     def __unicode__(__self):
         return __self.name

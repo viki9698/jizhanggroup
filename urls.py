@@ -15,4 +15,7 @@ urlpatterns = patterns('',
     ('^_ah/warmup$', 'djangoappengine.views.warmup'),
     ('^$', TemplateView.as_view(template_name="index.html")),
     ('^admin/', include(admin.site.urls)),
+    (r'^groupForm/$', 'groups.views.addGroup'),
+    (r'^groups/$', 'groups.views.listGroup'),
+    (r'^deleteGroups/$', 'groups.views.deleteGroups'),
 )
