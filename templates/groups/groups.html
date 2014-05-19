@@ -1,8 +1,6 @@
-<html>
-<head><title>list group </title>
-<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.8.0.min.js"></script>
-
-<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101095767" data-redirecturi="http://jizhanggroup.appsp0t.com/groups/" charset="utf-8"></script>
+{% extends 'base.html' %}
+{% block title %}list group{% endblock %}
+{% block preload_js %}
 <script tpye="text/javascript">
 $(function(){
     $("input[name='add']").click(function(){
@@ -23,44 +21,13 @@ $(function(){
     
 }
 );
-
-//从页面收集OpenAPI必要的参数。get_user_info不需要输入参数，因此paras中没有参数
-var paras = {};
-
-//用JS SDK调用OpenAPI
-QC.api("get_user_info", paras)
-	//指定接口访问成功的接收函数，s为成功返回Response对象
-	.success(function(s){
-		//成功回调，通过s.data获取OpenAPI的返回数据
-		alert("获取用户信息成功！当前用户昵称为："+s.data.nickname);
-	})
-	//指定接口访问失败的接收函数，f为失败返回Response对象
-	.error(function(f){
-		//失败回调
-		alert("获取用户信息失败！");
-	})
-	//指定接口完成请求后的接收函数，c为完成请求返回Response对象
-	.complete(function(c){
-		//完成请求回调
-		alert("获取用户信息完成！");
-	});
-
 </script>
-</head>
-<body>
-<span id="qqLoginBtn"></span>
-<script type="text/javascript">
-    QC.Login({
-       btnId:"qqLoginBtn"    //插入按钮的节点id
-});
-</script>
-<div><input name="add" type="button" value="添加">&nbsp;&nbsp;&nbsp;&nbsp;
-    <input name="remove" type="button" value="删除"></div>
+{% endblock %}
+{% block content %}<input name="add" type="button" value="添加">&nbsp;&nbsp;&nbsp;&nbsp;<input name="remove" type="button" value="删除">
 <table>
 <tr><th><input type="checkbox" name="checkAll">全选</th><th>名称</th><th>描述</th><th>日期</th><th>类型</th></tr>
 {%for form in forms%}
 <tr><td><input type="checkbox" name="checkItem" value="{{form.id}}"></td><td>{{form.name}}</td><td>{{form.description}}</td><td>{{form.create_date}}</td><td>{{form.group_type}}</td></tr>
 {%endfor%}
 </table>
-</body>
-</html>
+{% endblock %}
