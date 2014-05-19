@@ -5,7 +5,7 @@
 <script tpye="text/javascript">
 $(function(){
     $("input[name='add']").click(function(){
-        location.href="/groupForm";
+        location.href= "/groupForm/";
     });
 
     $("input[name='remove']").click(function(){
@@ -13,7 +13,7 @@ $(function(){
         $("input:checked[name='checkItem']").each(function(){
             ids += $(this).val()+",";
         });
-        location.href="/deleteGroups?ids="+ids;
+        location.href="/deleteGroups/?ids="+ids;
     });
 
     $("input[name='checkAll']").click(function(){

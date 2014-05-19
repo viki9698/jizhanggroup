@@ -3,6 +3,7 @@ from groups.forms import GroupForm
 from groups.models import Group
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
+from common import getHost
 def addGroup(request):
     if request.method == 'POST' :
         form = GroupForm(request.POST)
@@ -10,7 +11,7 @@ def addGroup(request):
             cd = form.cleaned_data
             g = Group(name=cd['name'], description=cd['description'], group_type=cd['group_type'])
             g.save()
-            return HttpResponseRedirect("/groups")
+            return HttpResponseRedirect(getHost(request) + "/groups/")
     else:
         form = GroupForm()
     return  render_to_response('groups/group_form.html', {'form':form})
@@ -24,4 +25,4 @@ def deleteGroups(request):
     for idItem in ids:
         if idItem:
             Group.objects.all().filter(id=idItem).delete()
-    return HttpResponseRedirect("/groups")
+    return HttpResponseRedirect(getHost(request) + "/groups/")
