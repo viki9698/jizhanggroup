@@ -1,12 +1,12 @@
 from django.db import models
 import datetime
 # Create your models here.
-class Group(models.Model):
+class Book(models.Model):
     name=models.CharField(max_length=100)
     description=models.CharField(max_length=100)
     create_date=models.DateField('date published', blank=True, 
         default=datetime.datetime.now().date())
-    group_type = models.CharField(max_length=10)
+    book_type = models.CharField(max_length=10)
     def __unicode__(__self):
         return __self.name
 
@@ -21,9 +21,9 @@ class User(models.Model):
     def __unicode__(__self):
         return __self.displayName
 
-class User_Group(models.Model):
+class User_Book(models.Model):
     user = models.ForeignKey(User)
-    group = models.ForeignKey(Group)
+    book = models.ForeignKey(Book)
     is_owner = models.CharField(max_length=1)
 
 class Bill(models.Model):
@@ -31,7 +31,7 @@ class Bill(models.Model):
     description=models.CharField(max_length=100)
     create_date=models.DateField('date published', blank=True, 
         default=datetime.datetime.now().date())
-    group = models.ForeignKey(Group)
+    book = models.ForeignKey(Book)
     
 class BillItem(models.Model):
     user = models.ForeignKey(User)

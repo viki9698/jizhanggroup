@@ -1,6 +1,6 @@
 from django import forms
 
-class GroupForm(forms.Form):
+class BookForm(forms.Form):
     name = forms.CharField()
     description = forms.CharField()
-    group_type = forms.CharField()
+    book_type = forms.CharField()

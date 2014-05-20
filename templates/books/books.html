@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% block title %}list group{% endblock %}
+{% block title %}list book{% endblock %}
 {% block preload_js %}
 <script tpye="text/javascript">
 $(function(){
     $("input[name='add']").click(function(){
-        location.href= "/groupForm/";
+        location.href= "/bookForm/";
     });
 
     $("input[name='remove']").click(function(){
@@ -12,13 +12,12 @@ $(function(){
         $("input:checked[name='checkItem']").each(function(){
             ids += $(this).val()+",";
         });
-        location.href="/deleteGroups/?ids="+ids;
+        location.href="/deleteBooks/?ids="+ids;
     });
 
     $("input[name='checkAll']").click(function(){
             $("input[name='checkItem']").attr("checked", this.checked);
     });
-    
 }
 );
 </script>
@@ -27,7 +26,7 @@ $(function(){
 <table>
 <tr><th><input type="checkbox" name="checkAll">全选</th><th>名称</th><th>描述</th><th>日期</th><th>类型</th></tr>
 {%for form in forms%}
-<tr><td><input type="checkbox" name="checkItem" value="{{form.id}}"></td><td>{{form.name}}</td><td>{{form.description}}</td><td>{{form.create_date}}</td><td>{{form.group_type}}</td></tr>
+<tr><td><input type="checkbox" name="checkItem" value="{{form.id}}"></td><td>{{form.name}}</td><td>{{form.description}}</td><td>{{form.create_date}}</td><td>{{form.book_type}}</td></tr>
 {%endfor%}
 </table>
 {% endblock %}
