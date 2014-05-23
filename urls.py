@@ -18,5 +18,5 @@ urlpatterns = patterns('',
     (r'^bookForm/$', 'books.views.addBook'),
     (r'^books/$', 'books.views.listBook'),
     (r'^deleteBooks/$', 'books.views.deleteBooks'),
-    (r'^register/$', 'groups.views.register'),
+    (r'^register/$', 'books.views.register'),
 )
