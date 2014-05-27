@@ -10,6 +10,9 @@ DATABASES['default']['HIGH_REPLICATION'] = True
 DATABASES['native'] = DATABASES['default']
 DATABASES['default'] = {'ENGINE': 'dbindexer', 'TARGET': 'native'}
 
+
+LOGIN_REDIRECT_URL = '/books/'
+
 AUTOLOAD_SITECONF = 'indexes'
 
 SECRET_KEY = '=r-$b*8hglm+858&9t043hlm6-&6-3d3vfc4((7yd0dbrakhvi'

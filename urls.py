@@ -19,4 +19,5 @@ urlpatterns = patterns('',
     (r'^books/$', 'books.views.listBook'),
     (r'^deleteBooks/$', 'books.views.deleteBooks'),
     (r'^register/$', 'books.views.register'),
+    (r'^login/$', 'django.contrib.auth.views.login'),
 )

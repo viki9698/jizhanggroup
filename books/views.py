@@ -15,7 +15,7 @@ def register(request):
             return HttpResponseRedirect(getHost(request) + "/books/")
     else:
         form = UserCreationForm()
-    return render_to_response("books/register.html", {'form': form,})
+    return render_to_response("registration/register.html", {'form': form,})
 
 def addBook(request):
     if request.method == 'POST' :
