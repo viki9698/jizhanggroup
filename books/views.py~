@@ -48,7 +48,6 @@ def addBook(request):
             ub.user = user
             ub.book = g
             ub.is_owner = '1'
-            ub.save()
             return HttpResponseRedirect(getHost(request) + "/books/")
     else:
         form = BookForm()
