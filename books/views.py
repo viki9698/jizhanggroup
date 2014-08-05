@@ -19,23 +19,25 @@ def register(request):
     return render_to_response("registration/register.html", {'form': form,})
 def login(request):
     if request.method == 'POST':
+        form = AuthenticationForm(request.POST)
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
         user = auth.authenticate(username=username, password=password)
         if user is not None and user.is_active:
             # Correct password, and the user is marked "active"
             auth.login(request, user)
+            request.session['userId'] = username
             # Redirect to a success page.
             return HttpResponseRedirect(getHost(request) + "/books/")
-        else:
-            # Show an error page
-            return HttpResponseRedirect("/account/invalid/")
 
     else:
         form = AuthenticationForm()
     return render_to_response("registration/login.html", {'form': form,})    
 
 def addBook(request):
+    if request.session.get('userId', None) is None:
+        return login(request)
+    userId = request.session['userId']
     if request.method == 'POST' :
         form = BookForm(request.POST)
         if form.is_valid():
@@ -48,6 +50,9 @@ def addBook(request):
     return  render_to_response('books/book_form.html', {'form':form})
 
 def listBook(request):
+    if request.session.get('userId', None) is None:
+        return login(request)
+    userId = request.session['userId']
     l = Book.objects.all()
     return render_to_response('books/books.html', {'forms':l});
 

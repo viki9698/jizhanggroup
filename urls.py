@@ -13,7 +13,7 @@ dbindexer.autodiscover()
 
 urlpatterns = patterns('',
     ('^_ah/warmup$', 'djangoappengine.views.warmup'),
-    ('^$', TemplateView.as_view(template_name="index.html")),
+    ('^$', 'books.views.listBook'),
     ('^admin/', include(admin.site.urls)),
     (r'^bookForm/$', 'books.views.addBook'),
     (r'^books/$', 'books.views.listBook'),
