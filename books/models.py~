@@ -1,7 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
 import datetime
-from django.contrib.auth.models import User
 # Create your models here.
 class Book(models.Model):
     name=models.CharField(max_length=100)
@@ -11,6 +9,18 @@ class Book(models.Model):
     book_type = models.CharField(max_length=10)
     def __unicode__(__self):
         return __self.name
+
+'''class User(models.Model):
+    username=models.CharField(max_length=20)
+    password = models.CharField(max_length=20)
+    displayName=models.CharField(max_length=50)
+    email = models.CharField(max_length=50)
+    user_type = models.CharField(max_length=10)
+    create_date=models.DateField('date published', blank=True, 
+        default=datetime.datetime.now().date())
+    def __unicode__(__self):
+        return __self.displayName
+        '''
 
 class User_Book(models.Model):
     user = models.ForeignKey(User)
