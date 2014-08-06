@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 import datetime
 # Create your models here.
 class Book(models.Model):
@@ -9,7 +10,7 @@ class Book(models.Model):
     book_type = models.CharField(max_length=10)
     def __unicode__(__self):
         return __self.name
-
+'''
 class User(models.Model):
     username=models.CharField(max_length=20)
     password = models.CharField(max_length=20)
@@ -20,6 +21,7 @@ class User(models.Model):
         default=datetime.datetime.now().date())
     def __unicode__(__self):
         return __self.displayName
+        '''
 
 class User_Book(models.Model):
     user = models.ForeignKey(User)
