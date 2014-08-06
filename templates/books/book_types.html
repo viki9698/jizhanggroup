@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}记账簿类型列表{% endblock %}
+{% block preload_js %}
+<script tpye="text/javascript">
+$(function(){
+    $("input[name='add']").click(function(){
+        location.href= "/bookTypeForm/";
+    });
+
+    $("input[name='remove']").click(function(){
+        var ids = "";
+        $("input:checked[name='checkItem']").each(function(){
+            ids += $(this).val()+",";
+        });
+        location.href="/deleteBookTypes/?ids="+ids;
+    });
+
+    $("input[name='checkAll']").click(function(){
+            $("input[name='checkItem']").attr("checked", this.checked);
+    });
+}
+);
+</script>
+{% endblock %}
+{% block content %}<input name="add" type="button" value="添加">&nbsp;&nbsp;&nbsp;&nbsp;<input name="remove" type="button" value="删除">
+<table>
+<tr><th><input type="checkbox" name="checkAll">全选</th><th>名称</th><th>描述</th><th>日期</th></tr>
+{%for form in forms%}
+<tr><td><input type="checkbox" name="checkItem" value="{{form.id}}"></td><td>{{form.name}}</td><td>{{form.description}}</td><td>{{form.create_date}}</td></tr>
+{%endfor%}
+</table>
+{% endblock %}
