@@ -1,17 +1,49 @@
-<html>
-<head><title>添加用户组</title></head>
-<body>
-<h1>Add Book</h1>
+{% extends 'base.html' %}
+{% block title %}list book{% endblock %}
+{% block preload_js %}
+<script tpye="text/javascript">
+$(function(){
+    $("input[name='save']").click(
+    function(){
+        var ids = "";
+        var i = 0;
+        $("#id_relatedContacts option:selected").each(function()
+        {
+            if (i==0)
+            {
+                ids = $(this).val();
+            } else {
+                ids +="," + $(this).val();
+            }
+            i++;
+        });
+        $("input[name='contacts']").val(ids);
+        alert($("input[name='contacts']").val());
+    })
+
+}
+);
+</script>
+{% endblock %}
+{% block content %}
 {% if form.errors %}
     <p style="color:red;"
         Please correct the book form
     </p>
 {% endif %}
 <form  method="post" action="">
+{% csrf_token %}
+
     <table>
         {{form.as_table}}
+        <tr><th><label for="id_relatedContacts">相关人员:</label></th><td><select multiple="multiple" id="id_relatedContacts" name="relatedContacts">
+        {%for item in contacts%}
+<option value="{{item.id}}">{{item.name}}</option>
+{%endfor%}
+</select></td></tr>
+
     </table>
-    <input type="submit" value="添加">
+    <input type="hidden" name="contacts">
+    <input type="submit" value="添加" name="save">
 </form>
-</body>
-</html>
+{% endblock %}

@@ -20,6 +20,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import get_current_site
+from common import getHost
 
 
 @sensitive_post_parameters()
@@ -48,7 +49,7 @@ def login(request, template_name='registration/login.html',
             if request.session.test_cookie_worked():
                 request.session.delete_test_cookie()
 
-            return HttpResponseRedirect(redirect_to)
+            return HttpResponseRedirect(getHost() + redirect_to)
     else:
         form = authentication_form(request)
 
@@ -85,7 +86,7 @@ def logout(request, next_page=None,
 
     if next_page:
         # Redirect to this page until the session has been cleared.
-        return HttpResponseRedirect(next_page)
+        return HttpResponseRedirect(getHost() + next_page)
 
     current_site = get_current_site(request)
     context = {

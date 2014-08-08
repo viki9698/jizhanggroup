@@ -1,5 +1,5 @@
 from django.conf import settings
-def getHost(request):
+def getHost(request=None):
     if settings.DEBUG:
         host = ""
     else:

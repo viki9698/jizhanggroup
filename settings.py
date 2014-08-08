@@ -2,16 +2,18 @@
 # If you want to use a different backend you have to remove all occurences
 # of "djangoappengine" from this file.
 from djangoappengine.settings_base import *
-
 import os
+
+
 
 # Activate django-dbindexer for the default database
 DATABASES['default']['HIGH_REPLICATION'] = True
 DATABASES['native'] = DATABASES['default']
 DATABASES['default'] = {'ENGINE': 'dbindexer', 'TARGET': 'native'}
 
-
-LOGIN_REDIRECT_URL = '/books/'
+#host = "http://jizhanggroup.appsp0t.com"
+LOGIN_URL = "/login/"
+#LOGIN_REDIRECT_URL = '/books/'
 
 AUTOLOAD_SITECONF = 'indexes'
 
@@ -37,6 +39,7 @@ MIDDLEWARE_CLASSES = (
 
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware', 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 

@@ -4,7 +4,7 @@
 <script tpye="text/javascript">
 $(function(){
     $("input[name='add']").click(function(){
-        location.href= "/bookForm/";
+        location.href= "/contactForm/";
     });
 
     $("input[name='remove']").click(function(){
@@ -19,7 +19,7 @@ $(function(){
         }
         var flag = confirm("您确定要删除这些条目吗?");
         if (flag)
-            location.href="/deleteBooks/?ids="+ids;
+            location.href="/deleteContacts/?ids="+ids;
     });
 
     $("input[name='checkAll']").click(function(){
@@ -31,10 +31,10 @@ $(function(){
 {% endblock %}
 {% block content %}<input name="add" type="button" value="添加">&nbsp;&nbsp;&nbsp;&nbsp;<input name="remove" type="button" value="删除">
 <table align="center" border='1'>
-<tr><th><input type="checkbox" name="checkAll">全选</th><th>名称</th><th>描述</th><th>日期</th><th>类型</th><th>操作</th></tr>
+<tr><th><input type="checkbox" name="checkAll">全选</th><th>名称</th><th>描述</th><th>日期</th><th>关联用户</th></tr>
 {%for form in forms%}
-<tr><td><input type="checkbox" name="checkItem" value="{{form.id}}"></td><td>{{form.name}}</td><td>{{form.description}}</td><td>{{form.create_date}}</td><td>{{form.book_type}}</td>
-<td><a href='{%url "book_detail" form.id %}'>操作</a></td>
+<tr><td><input type="checkbox" name="checkItem" value="{{form.id}}"></td><td>{{form.name}}</td><td>{{form.description}}</td><td>{{form.create_date}}</td><td>{{form.user}}</td>
+
 </tr>
 {%endfor%}
 </table>

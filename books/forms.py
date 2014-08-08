@@ -1,14 +1,23 @@
 # encoding: utf-8
 from django import forms
-from books.models import Book
+from books.models import Book, Contact
+from django.contrib.auth.models import User
 
 class BookForm(forms.ModelForm):
     name = forms.CharField()
     description = forms.CharField()
-    
     class Meta :
         model = Book
         fields = ('name', 'description', 'book_type')
+        
+class ContactForm(forms.ModelForm):
+    name = forms.CharField()
+    description = forms.CharField()
+    
+    class Meta :
+        model = Contact
+        fields = ('name', 'description', 'user')
+        
 class ItemForm(forms.Form):
     title = forms.CharField(label='名称')
     description = forms.CharField(label='描述', required=False)
