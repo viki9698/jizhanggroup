@@ -41,9 +41,10 @@ class Bill(models.Model):
     create_date=models.DateField('date published', blank=True, 
         default=datetime.datetime.now().date())
     book = models.ForeignKey(Book)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    create_by = models.ForeignKey(User)
     
-class BillItem(models.Model):
-    user = models.ForeignKey(User)
-    itemType = models.CharField(max_length=1)
+class Bill_Item(models.Model):
+    contact = models.ForeignKey(Contact)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     bill = models.ForeignKey(Bill)

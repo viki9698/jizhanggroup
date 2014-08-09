@@ -27,8 +27,7 @@
         width:100%;
     }
     table{
-        margin-left:auto;
-        margin-right:auto;
+        star:expression(this.align='center');
     }
 
     </style>

@@ -1,6 +1,6 @@
 # Create your views here.
 from books.forms import BookForm, BookTypeForm, ItemForm, ContactForm
-from books.models import Book, Book_Type, Contact, Contact_Book
+from books.models import Book, Book_Type, Contact, Contact_Book,Bill,Bill_Item
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from common import getHost
@@ -81,11 +81,9 @@ def listContacts(request):
 
     
 def bookDetail(request, bookId):
-    if request.session.get('userId', None) is None:
-        return login(request)
-    userId = request.session['userId']
     book = Book.objects.get(id=bookId)
-    return render_to_response('books/book_form.html', {'forms':book})
+    
+    return render_to_response('books/book_detail.html', {'form':book})
     
 def deleteBooks(request):
     ids = request.GET["ids"].split(",")
@@ -101,25 +99,33 @@ def deleteContacts(request):
             Contact.objects.get(id=idItem).delete()
     return HttpResponseRedirect(getHost(request) + "/contacts/")
     
+def deleteItems(request,bookId):
+    ids = request.GET["ids"].split(",")
+    for idItem in ids:
+        if idItem:
+            Bill.objects.get(pk=idItem).delete()
+    return HttpResponseRedirect(getHost(request) + "/books/" + bookId + "/")
+    
 def addItem(request, bookId):
-    if request.session.get('userId', None) is None:
-        return login(request)
-    userId = request.session['userId']
     if request.method == 'POST' :
-        form = BookForm(request.POST)
+        #contactIds = request.REQUEST.getList("contact")
+        form = ItemForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            g = Book(name=cd['name'], description=cd['description'], book_type=cd['book_type'])
+            num = float(cd['amount']) if cd['type'] == "1" else -float(cd['amount'])
+            g = Bill(title=cd['title'], description=cd['description'], book=Book(pk=bookId), create_by=request.user, amount=num)
             g.save()
-            return HttpResponseRedirect(getHost(request) + "/books/")
+            for contactId in request.POST["contactIds"].strip(",").split(","):
+                subAmount = request.POST['subCount_'+contactId]
+                billItem = Bill_Item(contact=Contact(pk=contactId), amount=subAmount, bill=g)
+                billItem.save()
+            return HttpResponseRedirect(getHost(request) + "/books/" + bookId + "/")
     else:
         form = ItemForm()
-    return  render_to_response('books/item_form.html', {'form':form})
+        contacts = [contactBook.contact for contactBook in Contact_Book.objects.filter(book=Book(pk=bookId))]
+    return  render_to_response('books/item_form.html', {'form':form, 'contacts':contacts},context_instance=RequestContext(request))
     
 def addBookType(request):
-    if request.session.get('userId', None) is None:
-        return login(request)
-    userId = request.session['userId']
     if request.method == 'POST' :
         form = BookTypeForm(request.POST)
         if form.is_valid():
@@ -129,12 +135,9 @@ def addBookType(request):
             return HttpResponseRedirect(getHost(request) + "/bookTypes/")
     else:
         form = BookTypeForm()
-    return  render_to_response('books/book_type_form.html', {'form':form})
+    return  render_to_response('books/book_type_form.html', {'form':form}, context_instance=RequestContext(request))
     
 def listBookTypes(request):
-    if request.session.get('userId', None) is None:
-        return login(request)
-    userId = request.session['userId']
     l = Book_Type.objects.all()
     return render_to_response('books/book_types.html', {'forms':l})
     

@@ -39,7 +39,7 @@ $(function(){
     {%for bill in form.bill_set.all%}
     <tr style="{%if bill.amount > 0%} color:green; {%else%} color:red; {%endif%}"><td><input type="checkbox" name="checkItem" value="{{bill.id}}"></td><td>{{bill.title}}</td><td>{{bill.description}}</td><td>{{bill.amount}}</td>{%if bill.amount > 0%}<td>收入</td>{%else%}<td>支出</td>{%endif%}<td>
     {%for billItem in bill.bill_item_set.all%}
-        {%if forloop.counter > 1%},{%endif%}{{billItem.contact.name}}: {{billItem.amount}}
+        {{billItem.contact.name}}: {{billItem.amount}},
     {%endfor%}
     </td></tr>
     {%endfor%}
