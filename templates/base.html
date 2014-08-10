@@ -6,7 +6,9 @@
     xml:lang="{% firstof LANGUAGE_CODE 'en' %}"
     lang="{% firstof LANGUAGE_CODE 'en' %}">
   <head>
-<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.8.0.min.js"></script>
+<link href="/static/books/css/ui-lightness/jquery-ui-1.9.2.custom.min.css" rel="stylesheet">
+<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.8.3.min.js"></script>
+<script src="/static/books/js/jquery-ui-1.9.2.custom.min.js"></script>
 
     <title>{% block title %}{% endblock %} - 记账簿</title>
 
@@ -15,7 +17,14 @@
 
     {% block preload_js %}
     {% endblock %}
-
+  <script>
+  $(function() {
+    $( "input[type=submit], button, input[type=button]" )
+      .button();
+     $( "#radio" ).buttonset();
+     $("form").form();
+  });
+  </script>
     {% block extra-head %}{% endblock %}
     <style type="text/css">
     body {

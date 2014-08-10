@@ -13,7 +13,7 @@ DATABASES['default'] = {'ENGINE': 'dbindexer', 'TARGET': 'native'}
 
 #host = "http://jizhanggroup.appsp0t.com"
 LOGIN_URL = "/login/"
-#LOGIN_REDIRECT_URL = '/books/'
+LOGIN_REDIRECT_URL = '/books/'
 
 AUTOLOAD_SITECONF = 'indexes'
 
@@ -24,6 +24,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.auth',
     'django.contrib.sessions',
+    'django.contrib.staticfiles',
     'djangotoolbox',
     'autoload',
     'dbindexer',

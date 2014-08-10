@@ -2,7 +2,7 @@ from django.conf.urls.defaults import *
 from django.contrib import admin
 import dbindexer
 from django.views.generic import TemplateView
-
+import settings
 handler500 = 'djangotoolbox.errorviews.server_error'
 
 # django admin
@@ -29,4 +29,6 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'django.contrib.auth.views.logout_then_login',name="logout"),
     (r'^bookTypeForm/$', 'books.views.addBookType'),
     (r'^bookTypes/$', 'books.views.listBookTypes'),
+    url( r'^static/(?P<path>.*)$', 'django.views.static.serve',
+                                            { 'document_root':settings.STATIC_URL }),
 )

@@ -10,9 +10,7 @@ $(function(){
             },
             title: 'add title',
             buttons:{
-                Dismiss: function(){ frames["iframe"].document.forms[0].submit();
-                    $(this).dialog('close');
-                }
+                Dismiss: function(){ frames["iframe"].document.forms[0].submit();;}
             }
         });
         //location.href= "/bookForm/";
