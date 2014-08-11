@@ -21,8 +21,9 @@ $(function(){
 );
 </script>
 {% endblock %}
+{% block subTitle %}新建记录{% endblock %}
+
 {% block content %}
-<h1>添加数据项</h1>
 {% if form.errors %}
     <p style="color:red;"
         Please correct the form

@@ -78,12 +78,6 @@ def logout(request, next_page=None,
     """
     auth_logout(request)
 
-    if redirect_field_name in request.REQUEST:
-        next_page = request.REQUEST[redirect_field_name]
-        # Security check -- don't allow redirection to a different host.
-        if not is_safe_url(url=next_page, host=request.get_host()):
-            next_page = request.path
-
     if next_page:
         # Redirect to this page until the session has been cleared.
         return HttpResponseRedirect(getHost() + next_page)
@@ -106,7 +100,6 @@ def logout_then_login(request, login_url=None, current_app=None, extra_context=N
     """
     if not login_url:
         login_url = settings.LOGIN_URL
-    login_url = resolve_url(login_url)
     return logout(request, login_url, current_app=current_app, extra_context=extra_context)
 
 

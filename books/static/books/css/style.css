@@ -1,0 +1,188 @@
+/*
+CSS Credit: http://www.templatemo.com
+*/
+
+body {
+	margin: 0;
+	padding: 0;
+	color: #d6e5e4;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 13px;
+	line-height: 1.5em; 
+	background-color: #61a8a4;
+	background-repeat: repeat;
+	background: url(../images/templatemo_body.jpg)
+}
+
+a, a:link, a:visited { 
+	color: #ffffff; 
+	font-weight: normal; 
+}
+
+a:hover { 
+	text-decoration: underline; 
+}
+
+p { 
+	margin: 0 0 10px 0; 
+	padding: 0; 
+}
+
+img { border: none }
+blockquote { border: 1px solid #ccc; border-left: 5px solid #000; padding: 19px; margin: 20px 0 0 0}
+cite { font-weight: bold; color:#fff; }
+cite a, cite a:link, cite a:visited  { font-weight: 400; color:#fff; text-decoration: none }
+cite span { font-weight: 400; color: #d6e5e4; }
+em { color: #fff; }
+
+h1, h2, h3, h4, h5, h6 { color: #000; font-weight: normal;  font-family: Georgia, "Times New Roman", Times, serif }
+h1 { font-size: 34px; margin: 0 0 30px; padding: 5px 0 }
+h2 { font-size: 28px; margin: 0 0 20px; padding: 5px 0; }
+h3 { font-size: 22px; margin: 0 0 10px; padding: 0; }
+h4 { font-size: 18px; margin: 0 0 15px; padding: 0; }
+h5 { font-size: 16px; margin: 0 0 10px; padding: 0;  }
+h6 { font-size: 14px; margin: 0 0 5px; padding: 0; }
+
+.cleaner { clear: both }
+.h10 { height: 10px }
+.h20 { height: 20px }
+.h30 { height: 30px }
+.h40 { height: 40px }
+.h50 { height: 50px }
+.h60 { height: 60px }
+
+
+
+
+#templatemo_wrapper {
+	width: 960px;
+	margin: 0 auto;
+	padding: 30px 10px;
+	background: url(../images/templatemo_main.jpg) repeat-y
+}
+
+#templatemo_header {
+	width: 960px;
+	padding: 40px 0 20px;
+	background: url(../images/templatemo_hr_divider.jpg) bottom repeat-x
+}
+
+#templatemo_menu { 
+	height: 42px;
+	padding: 5px 0;
+	margin-bottom: 10px;
+	background: url(../images/templatemo_hr_divider.jpg) repeat-x bottom
+}
+.ddsmoothmenu{
+}
+
+.ddsmoothmenu ul{
+	z-index:100;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+/*Top level list items*/
+.ddsmoothmenu ul li{
+	position: relative;
+	display: inline;
+	float: left;
+	padding: 0 7px 0 5px;
+	background: url(../images/templatemo_vt-divider.jpg) repeat-y right;
+}
+
+/*Top level menu link items style*/
+.ddsmoothmenu ul li a {
+	display: block;
+	width: 92px;
+	line-height: 40px;
+	font-size: 14px;
+	color: #fff;	
+	text-align: center;
+	text-decoration: none;
+	font-weight: 400;
+	outline: none;
+}
+
+* html .ddsmoothmenu ul li a{ /*IE6 hack to get sub menu links to behave correctly*/
+display: inline-block;
+}
+
+.ddsmoothmenu ul li a.selected, .ddsmoothmenu ul li a:hover { /*CSS class that's dynamically added to the currently active menu items' LI A element*/
+	background: url(../images/templatemo_menu_hover.png) no-repeat
+}
+	
+/*1st sub level menu*/
+.ddsmoothmenu ul li ul{
+	position: absolute;
+	left: 0;
+	margin: 0 0 0 6px;
+	display: none; /*collapse all sub menus to begin with*/
+	visibility: hidden;
+	background: #a7d1cf;
+}
+
+/*Sub level menu list items (undo style from Top level List Items)*/
+.ddsmoothmenu ul li ul li{
+display: list-item;
+float: none;
+padding: 0;
+background: none;
+}
+
+/*All subsequent sub menu levels vertical offset after 1st level sub menu */
+.ddsmoothmenu ul li ul li ul{
+top: 0;
+}
+
+/* Sub level menu links style */
+.ddsmoothmenu ul li ul li a{
+	font-weight: 500;
+	margin: 0;
+	padding: 0 10px;
+	line-height: 30px;
+	width: 140px; /*width of sub menus*/
+	font-size: 12px;
+	text-align: left;
+	border-bottom: 1px solid #91bdba;
+	border-top: 1px solid #badfdc;
+}
+
+.ddsmoothmenu ul li ul li a.selected, .ddsmoothmenu ul li ul li a:hover  { /*CSS class that's dynamically added to the currently active menu items' LI A element*/
+	background: #91bdba
+}
+/* Holly Hack for IE \*/
+* html .ddsmoothmenu{height: 1%;} /*Holly Hack for IE7 and below*/
+
+
+/* ######### CSS classes applied to down and right arrow images  ######### */
+
+.downarrowclass{
+position: absolute;
+top: 12px;
+right: 7px;
+}
+
+.rightarrowclass{
+position: absolute;
+top: 6px;
+right: 5px;
+}
+
+/* ######### CSS for shadow added to sub menus  ######### */
+
+.ddshadow{
+position: absolute;
+left: 0;
+top: 0;
+width: 0;
+height: 0;
+background: #509894;
+}
+
+.toplevelshadow{ /*shadow opacity. Doesn't work in IE*/
+
+}
+
+/* menu */

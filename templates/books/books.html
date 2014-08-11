@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
-{% block title %}list book{% endblock %}
+{% block title %}记账簿列表{% endblock %}
 {% block preload_js %}
 <script tpye="text/javascript">
 $(function(){
     $("input[name='add']").click(function(){
+        /*
         $('<iframe src="/bookForm/" id= "testDialog" name="iframe">').dialog({
             open: function(){
                 $(this).css('width', '95%');
@@ -14,8 +15,8 @@ $(function(){
                     $(this).dialog('close');
                 }
             }
-        });
-        //location.href= "/bookForm/";
+        });*/
+        location.href= "/bookForm/";
     });
 
     $("input[name='remove']").click(function(){
@@ -40,6 +41,7 @@ $(function(){
 );
 </script>
 {% endblock %}
+{% block subTitle %}记账簿列表{% endblock %}
 {% block content %}<input name="add" type="button" value="添加">&nbsp;&nbsp;&nbsp;&nbsp;<input name="remove" type="button" value="删除">
 <table align="center" border='1'>
 <tr><th><input type="checkbox" name="checkAll">全选</th><th>名称</th><th>描述</th><th>日期</th><th>类型</th><th>操作</th></tr>

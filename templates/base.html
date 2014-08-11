@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html 
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,9 +7,11 @@
     xml:lang="{% firstof LANGUAGE_CODE 'en' %}"
     lang="{% firstof LANGUAGE_CODE 'en' %}">
   <head>
-<link href="/static/books/css/ui-lightness/jquery-ui-1.9.2.custom.min.css" rel="stylesheet">
+  
+<link href="{% static 'books/css/style.css'%}" rel="stylesheet">
+
 <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.8.3.min.js"></script>
-<script src="/static/books/js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="{% static 'books/js/jquery-ui-1.9.2.custom.min.js'%}"></script>
 
     <title>{% block title %}{% endblock %} - 记账簿</title>
 
@@ -19,10 +22,7 @@
     {% endblock %}
   <script>
   $(function() {
-    $( "input[type=submit], button, input[type=button]" )
-      .button();
-     $( "#radio" ).buttonset();
-     $("form").form();
+
   });
   </script>
     {% block extra-head %}{% endblock %}
@@ -31,9 +31,6 @@
         text-align:center;
         margin:0px;
         padding:0px;
-    }
-    div{
-        width:100%;
     }
     table{
         margin-left:auto;
@@ -44,12 +41,22 @@
   </head>
 
   <body>
-    <div class="columns">
-    <div id="header">
-    <a href="{%url 'books' %}">记账簿</a>&nbsp;&nbsp;&nbsp;<a href="{%url 'contacts'%}">联系人<a>&nbsp;&nbsp;&nbsp;<a href=""><a>
-    <font align="right"><a href="{%url 'logout' %}">注销</a></font>
+  
+  <div id="templatemo_wrapper">
+
+    <div id="templatemo_menu" class="ddsmoothmenu">
+        <ul>
+            <li><a href="{%url 'books' %}" class="selected">首页</a></li>
+            <li><a href="{%url 'books' %}" class="selected">账号管理</a></li>
+            <li><a href="{%url 'books' %}" class="selected">记账簿</a></li>
+            <li><a href="{%url 'contacts'%}" class="selected">联系人</a></li>
+            <li><a href="{%url 'logout' %}">注销</a></li>
+        </ul>
+        <br style="clear: left">
+    </div> <!-- end of menu -->
+    <div id="templatemo_header">
+    	<div id="site_title"><h2>{% block subTitle %}{% endblock %}</h2></div>
     </div>
-    <p><p>
       <div id="content" class="column">
         {% block content-header %}
           {% if error %}<div class="error">{{ error }}</div>{% endif %}
@@ -63,17 +70,11 @@
 
         {% block content %}{% endblock %}
       </div>
-
-      <div id="sidebar" class="column">
-        {% block sidebar %}
-        {% endblock %}
-      </div>
+    
+    <div id="templatemo_footer">
+    	      Powered by Rui
     </div>
-
-    <div id="footer">
-      <p>Powered by Rui</p>
-    </div>
-
+</div>
     {% block js %}
     {% endblock %}
   </body>

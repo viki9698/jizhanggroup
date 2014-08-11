@@ -18,13 +18,14 @@ $(function(){
             i++;
         });
         $("input[name='contacts']").val(ids);
-        alert($("input[name='contacts']").val());
     })
 
 }
 );
 </script>
 {% endblock %}
+{% block subTitle %}新建记账簿{% endblock %}
+
 {% block content %}
 {% if form.errors %}
     <p style="color:red;"

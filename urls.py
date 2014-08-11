@@ -30,5 +30,5 @@ urlpatterns = patterns('',
     (r'^bookTypeForm/$', 'books.views.addBookType'),
     (r'^bookTypes/$', 'books.views.listBookTypes'),
     url( r'^static/(?P<path>.*)$', 'django.views.static.serve',
-                                            { 'document_root':settings.STATIC_URL }),
+    { 'document_root':settings.STATIC_URL }),
 )

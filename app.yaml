@@ -25,6 +25,10 @@ handlers:
 - url: /media/admin
   static_dir: django/contrib/admin/media
   expiration: '0'
+  
+- url: /static/books
+  static_dir: books/static/books
+  expiration: '0'
 
 - url: /static/admin
   static_dir: django/contrib/admin/static/admin

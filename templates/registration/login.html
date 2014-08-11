@@ -1,9 +1,46 @@
-{% extends "base.html" %}
 
-{% block title %}Login Page{% endblock %}
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}"
+    xml:lang="{% firstof LANGUAGE_CODE 'en' %}"
+    lang="{% firstof LANGUAGE_CODE 'en' %}">
+  <head>
+  
+<link href="/static/books/css/style.css" rel="stylesheet">
 
-{% block content %}
-  <h1>Login</h1>
+<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.8.3.min.js"></script>
+<script src="/static/books/js/jquery-ui-1.9.2.custom.min.js"></script>
+
+    <title>登录 - 记账簿</title>
+  <script>
+  $(function() {
+
+  });
+  </script>
+    <style type="text/css">
+    body {
+        text-align:center;
+        margin:0px;
+        padding:0px;
+    }
+    table{
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    </style>
+  </head>
+
+  <body>
+  
+  <div id="templatemo_wrapper">
+
+    <div id="templatemo_header">
+    	<div id="site_title"><h2>登录</h2></div>
+    </div>
+      <div id="content" class="column">
 <form action="" method="post">
 {% csrf_token %}
       {{ form.as_p }}
@@ -11,4 +48,13 @@
       <a href="/register/">注册</a>
   </form>
   </form>
-{% endblock %}
+      </div>
+    
+    <div id="templatemo_footer">
+    	      Powered by Rui
+    </div>
+</div>
+
+  </body>
+</html>
+
