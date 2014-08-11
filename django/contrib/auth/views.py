@@ -108,7 +108,7 @@ def redirect_to_login(next, login_url=None,
     """
     Redirects the user to the login page, passing the given 'next' page
     """
-    resolved_url = resolve_url(login_url or settings.LOGIN_URL)
+    resolved_url = login_url or settings.LOGIN_URL
 
     login_url_parts = list(urlparse(resolved_url))
     if redirect_field_name:

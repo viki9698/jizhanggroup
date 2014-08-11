@@ -10,6 +10,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.template import RequestContext 
 
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -55,7 +56,6 @@ def addBook(request):
         form = BookForm()
     contacts = Contact.objects.filter(create_by=request.user)
     return  render_to_response('books/book_form.html', {'form':form, 'contacts':contacts},context_instance=RequestContext(request))
-
 def listBook(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)    
