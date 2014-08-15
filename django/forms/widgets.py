@@ -409,6 +409,7 @@ class Textarea(Widget):
 
 
 class DateInput(TextInput):
+    input_type = 'date'
     def __init__(self, attrs=None, format=None):
         super(DateInput, self).__init__(attrs)
         if format:

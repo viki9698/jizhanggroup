@@ -4,7 +4,7 @@ import datetime
 # Create your models here.
 class Book_Type(models.Model):
     name=models.CharField(max_length=100)
-    description=models.CharField(max_length=100)
+    description=models.CharField(max_length=100, blank = True, null = True)
     create_date=models.DateField('date published', blank=True, 
         default=datetime.datetime.now().date())
     def __unicode__(__self):
@@ -12,7 +12,7 @@ class Book_Type(models.Model):
 
 class Book(models.Model):
     name=models.CharField(max_length=100)
-    description=models.CharField(max_length=100)
+    description=models.CharField(max_length=100, blank = True, null = True)
     create_date=models.DateField('date published', blank=True, 
         default=datetime.datetime.now().date())
     create_by = models.ForeignKey(User, null=True)
@@ -22,7 +22,7 @@ class Book(models.Model):
 
 class Contact(models.Model):
     name=models.CharField(max_length=100)
-    description=models.CharField(max_length=100)
+    description=models.CharField(max_length=100, blank = True, null = True)
     create_date=models.DateField('date published', blank=True, 
         default=datetime.datetime.now().date())
     create_by = models.ForeignKey(User, related_name='creator')
@@ -37,9 +37,10 @@ class Contact_Book(models.Model):
 
 class Bill(models.Model):
     title=models.CharField(max_length=20)
-    description=models.CharField(max_length=100)
+    description=models.CharField(max_length=100, blank = True, null = True)
     create_date=models.DateField('date published', blank=True, 
         default=datetime.datetime.now().date())
+    date = models.DateField('Date happen', blank=True, null = True)
     book = models.ForeignKey(Book)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     create_by = models.ForeignKey(User)

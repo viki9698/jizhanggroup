@@ -17,6 +17,11 @@ $(function(){
             }
             i++;
         });
+        if (ids == "")
+        {
+            alert("请至少为记账簿选择一个相关人员。");
+            return false;
+        }
         $("input[name='contacts']").val(ids);
     })
 
@@ -42,7 +47,7 @@ $(function(){
         {%for item in contacts%}
 <option value="{{item.id}}">{{item.name}}</option>
 {%endfor%}
-</select></td></tr>
+</select> <a href="{%url 'contacts'%}">管理我的联系人</a></td></tr>
 
     </table>
     <input type="hidden" name="contacts">

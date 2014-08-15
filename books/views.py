@@ -42,6 +42,8 @@ def logout(request):
     return render_to_response("registration/login.html", context_instance=RequestContext(request))
 '''
 def addBook(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)  
     if request.method == 'POST' :
         form = BookForm(request.POST)
         if form.is_valid():
@@ -63,6 +65,8 @@ def listBook(request):
     return render_to_response('books/books.html', {'forms':l})
     
 def addContact(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)  
     if request.method == 'POST' :
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -76,16 +80,29 @@ def addContact(request):
     return  render_to_response('books/contact_form.html', {'form':form},context_instance=RequestContext(request))
 
 def listContacts(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)  
     l = Contact.objects.filter(create_by=request.user)
     return render_to_response('books/contacts.html', {'forms':l})
 
     
 def bookDetail(request, bookId):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)  
     book = Book.objects.get(id=bookId)
-    
-    return render_to_response('books/book_detail.html', {'form':book})
+    amountIn = 0
+    amountOut = 0
+    for bill in Bill.objects.filter(book=Book(id=bookId)):
+        if bill.amount > 0:
+            amountIn += bill.amount
+        else:
+            amountOut -= bill.amount
+    amount = amountIn - amountOut
+    return render_to_response('books/book_detail.html', {'form':book, 'amountIn': amountIn, 'amountOut':amountOut, 'amount':amount})
     
 def deleteBooks(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)  
     ids = request.GET["ids"].split(",")
     for idItem in ids:
         if idItem:
@@ -93,6 +110,8 @@ def deleteBooks(request):
     return HttpResponseRedirect(getHost(request) + "/books/")
 
 def deleteContacts(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)  
     ids = request.GET["ids"].split(",")
     for idItem in ids:
         if idItem:
@@ -100,6 +119,8 @@ def deleteContacts(request):
     return HttpResponseRedirect(getHost(request) + "/contacts/")
     
 def deleteItems(request,bookId):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)  
     ids = request.GET["ids"].split(",")
     for idItem in ids:
         if idItem:
@@ -107,13 +128,15 @@ def deleteItems(request,bookId):
     return HttpResponseRedirect(getHost(request) + "/books/" + bookId + "/")
     
 def addItem(request, bookId):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)  
     if request.method == 'POST' :
         #contactIds = request.REQUEST.getList("contact")
         form = ItemForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
             num = float(cd['amount']) if cd['type'] == "1" else -float(cd['amount'])
-            g = Bill(title=cd['title'], description=cd['description'], book=Book(pk=bookId), create_by=request.user, amount=num)
+            g = Bill(title=cd['title'], description=cd['description'], book=Book(pk=bookId), date=cd['date'], create_by=request.user, amount=num)
             g.save()
             for contactId in request.POST["contactIds"].strip(",").split(","):
                 subAmount = request.POST['subCount_'+contactId]
@@ -121,11 +144,13 @@ def addItem(request, bookId):
                 billItem.save()
             return HttpResponseRedirect(getHost(request) + "/books/" + bookId + "/")
     else:
-        form = ItemForm()
-        contacts = [contactBook.contact for contactBook in Contact_Book.objects.filter(book=Book(pk=bookId))]
+        form = ItemForm(initial={'type':'1'})
+    contacts = [contactBook.contact for contactBook in Contact_Book.objects.filter(book=Book(pk=bookId))]
     return  render_to_response('books/item_form.html', {'form':form, 'contacts':contacts},context_instance=RequestContext(request))
     
 def addBookType(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)  
     if request.method == 'POST' :
         form = BookTypeForm(request.POST)
         if form.is_valid():
@@ -138,10 +163,14 @@ def addBookType(request):
     return  render_to_response('books/book_type_form.html', {'form':form}, context_instance=RequestContext(request))
     
 def listBookTypes(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)  
     l = Book_Type.objects.all()
     return render_to_response('books/book_types.html', {'forms':l})
     
 def deleteBookTypes(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)  
     ids = request.GET["ids"].split(",")
     for idItem in ids:
         if idItem:

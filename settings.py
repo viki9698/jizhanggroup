@@ -15,6 +15,8 @@ DATABASES['default'] = {'ENGINE': 'dbindexer', 'TARGET': 'native'}
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = '/books/'
 
+DATE_FORMAT = 'Y-n-j'
+
 AUTOLOAD_SITECONF = 'indexes'
 
 SECRET_KEY = '=r-$b*8hglm+858&9t043hlm6-&6-3d3vfc4((7yd0dbrakhvi'

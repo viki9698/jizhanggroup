@@ -43,7 +43,7 @@ $(function(){
 {% endblock %}
 {% block subTitle %}记账簿列表{% endblock %}
 {% block content %}<input name="add" type="button" value="添加">&nbsp;&nbsp;&nbsp;&nbsp;<input name="remove" type="button" value="删除">
-<table align="center" border='1'>
+<table id="testSubject" cellspacing="1" border="0">
 <tr><th><input type="checkbox" name="checkAll">全选</th><th>名称</th><th>描述</th><th>日期</th><th>类型</th><th>操作</th></tr>
 {%for form in forms%}
 <tr><td><input type="checkbox" name="checkItem" value="{{form.id}}"></td><td>{{form.name}}</td><td>{{form.description}}</td><td>{{form.create_date}}</td><td>{{form.book_type}}</td>

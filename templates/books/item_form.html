@@ -3,20 +3,67 @@
 {% block preload_js %}
 <script tpye="text/javascript">
 $(function(){
-
-
+    $("#id_amount").change(function(){
+        autoPopulateSubAmountInput();
+    });
+    $("input[name='contact']").click(function(){
+        if (!$(this).attr("checked"))
+        {
+            $("input[name='subCount_" + $(this).val() + "']").val("");
+        }
+        autoPopulateSubAmountInput();
+    });
+    
     $("input[name='save']").click(function(){
+        return checkForm();
+    });
+    
+    function autoPopulateSubAmountInput() {
+        var num = $("input:checked[name='contact']").length;
+        var sum = $("#id_amount").val();
+        $("input:checked[name='contact']").each(function(index){
+            var contantId = $(this).val();
+            var subAmount = (sum/num).toFixed(2);
+            $("input[name='subCount_" + contantId + "']").val(subAmount);
+            sum -= subAmount;
+            num --;
+        });
+    }
+    
+    function checkForm(){
+        if ($.trim($("#id_title").val()) == "")
+        {
+            alert("请输入名称。");
+            return false;
+        }
+        var sum = $("#id_amount").val();
+        if ( $("#id_amount").val() <= 0 ) {
+            alert("请输入正确的金额。");
+            return false;
+        }
         var ids = "";
         $("input:checked[name='contact']").each(function(){
             ids += $(this).val()+",";
+            var contantId = $(this).val();
+            var subAcount = $("input[name='subCount_" + contantId + "']").val();
+            if ( subAcount <= 0 ) {
+                alert("请输入正确的相关人员的金额。");
+                return false;
+            }
+            sum -= subAcount;
         });
         if (ids == "")
         {
             alert("请至少选择一项涉及人员！");
             return false;
         }
+        if (sum != 0) {
+            alert("总金额不等于所选相关人员金额之和。");
+            return false;
+        }
         $("input[name='contactIds']").val(ids);
-    });
+        return true;
+    }
 }
 );
 </script>
@@ -35,8 +82,8 @@ $(function(){
         {{form.as_table}}
 <tr><th><label for="id_contact_0">相关人员:</label></th><td><ul>
 {%for contact in contacts%}
-<li><label for="id_contact_{{ forloop.counter }}"><input id="id_contact_{{ forloop.counter }}" name="contact" type="checkbox" value="{{contact.id}}" />{{contact.name}}
-<input type="text" name="subCount_{{contact.id}}" size="8px"></label></li>
+<li><label for="id_contact_{{ forloop.counter }}" ><input id="id_contact_{{ forloop.counter }}" name="contact" type="checkbox" value="{{contact.id}}"/>{{contact.name}}</label><input type="text" name="subCount_{{contact.id}}" style="margin-left:2%;">
+</li>
 {%endfor%}
 </ul></td></tr>
     </table>
