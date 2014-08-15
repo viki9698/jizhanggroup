@@ -29,10 +29,10 @@ $(function(){
 {% block subTitle %}记账簿<b><i><um>{{form.name}}</um></i></b>详情{% endblock %}
 {% block content %}
 <table class="small">
-<tr><td>描述:{{form.description}}</td><td>所属人:{{form.create_by}}</td></tr>
-<tr><td>创建时间:{{form.create_date}}</td><td>相关人员:{%for contactBook in form.contact_book_set.all%}{{contactBook.contact.name}}&nbsp;&nbsp;{%endfor%}</td></tr>
-<tr><td>总收入:{{amountIn}}</td><td>总支出:{{amountOut}}</td></tr>
-<tr><td colspan="2">结余:{{amount}}</td></tr>
+<tr><td>描述: {{form.description}}</td><td>所属人: {{form.create_by}}</td></tr>
+<tr><td>创建时间: {{form.create_date}}</td><td>相关人员: {%for contactBook in form.contact_book_set.all%}{{contactBook.contact.name}}&nbsp;&nbsp;{%endfor%}</td></tr>
+<tr><td>总收入: <font color='green'><b>{{amountIn}}</b></font></td><td>总支出: <font color="red"><b>{{amountOut}}</b></font></td></tr>
+<tr><td colspan="2">结余: <font color={%if amount >= 0 %}'green'{%else%}'red'{%endif%}><b>{{amount}}</b></font></td></tr>
 
 </table>
 
@@ -40,9 +40,9 @@ $(function(){
 <div><a href="{%url 'addItem' form.id %}" style="margin-right:2%;">添加条目</a><input name="remove" type="button" value="删除" style="margin-left:2%;"></div>
 <p/>
 <table>
-    <tr><th><input type="checkbox" name="checkAll">全选</th><th>标题</th><th>描述</th><th>金额</th><th>类型</th><th>日期</th><th>涉及人员</th></tr>
+    <tr><th><input type="checkbox" name="checkAll">全选</th><th>标题</th><th>金额</th><th>类型</th><th>日期</th><th>涉及人员</th></tr>
     {%for bill in bills%}
-    <tr style="{%if bill.amount > 0%} color:green; {%else%} color:red; {%endif%}"><td><input type="checkbox" name="checkItem" value="{{bill.id}}"></td><td>{{bill.title}}</td><td>{{bill.description}}</td><td>{{bill.amount}}</td>{%if bill.amount > 0%}<td>收入</td>{%else%}<td>支出</td>{%endif%}<td>{{bill.date}}</td><td>
+    <tr style="{%if bill.amount > 0%} color:green; {%else%} color:red; {%endif%}" title="备注:{{bill.description}}"><td><input type="checkbox" name="checkItem" value="{{bill.id}}"></td><td>{{bill.title}}</td><td>{{bill.amount}}</td>{%if bill.amount > 0%}<td>收入</td>{%else%}<td>支出</td>{%endif%}<td>{{bill.date}}</td><td>
     {%for billItem in bill.bill_item_set.all%}
         {%if forloop.counter > 1%},{%endif%}{{billItem.contact.name}}: {{billItem.amount}}
     {%endfor%}
