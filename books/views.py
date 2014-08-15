@@ -92,7 +92,7 @@ def bookDetail(request, bookId):
     book = Book.objects.get(id=bookId)
     amountIn = 0
     amountOut = 0
-    bills = book.bill_set.all().order_by('-date')
+    bills = book.bill_set.all().order_by('-date', '-id')
     for bill in bills:
         if bill.amount > 0:
             amountIn += bill.amount

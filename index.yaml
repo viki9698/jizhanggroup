@@ -43,3 +43,11 @@ indexes:
   - name: book_id
   - name: date
     direction: desc
+
+- kind: books_bill
+  properties:
+  - name: book_id
+  - name: date
+    direction: desc
+  - name: __key__
+    direction: desc
