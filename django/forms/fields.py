@@ -18,7 +18,7 @@ from io import BytesIO
 from django.core import validators
 from django.core.exceptions import ValidationError
 from django.forms.util import ErrorList, from_current_timezone, to_current_timezone
-from django.forms.widgets import (TextInput, PasswordInput, HiddenInput,
+from django.forms.widgets import (TextInput,NumberInput, PasswordInput, HiddenInput,
     MultipleHiddenInput, ClearableFileInput, CheckboxInput, Select,
     NullBooleanSelect, SelectMultiple, DateInput, DateTimeInput, TimeInput,
     SplitDateTimeWidget, SplitHiddenDateTimeWidget, FILE_INPUT_CONTRADICTION)
@@ -258,6 +258,7 @@ class FloatField(IntegerField):
         return value
 
 class DecimalField(Field):
+    widget = NumberInput({'step':'0.01'})
     default_error_messages = {
         'invalid': _('Enter a number.'),
         'max_value': _('Ensure this value is less than or equal to %(limit_value)s.'),

@@ -92,13 +92,14 @@ def bookDetail(request, bookId):
     book = Book.objects.get(id=bookId)
     amountIn = 0
     amountOut = 0
-    for bill in Bill.objects.filter(book=Book(id=bookId)):
+    bills = book.bill_set.all().order_by('-date')
+    for bill in bills:
         if bill.amount > 0:
             amountIn += bill.amount
         else:
             amountOut -= bill.amount
     amount = amountIn - amountOut
-    return render_to_response('books/book_detail.html', {'form':book, 'amountIn': amountIn, 'amountOut':amountOut, 'amount':amount})
+    return render_to_response('books/book_detail.html', {'form':book, 'bills':bills, 'amountIn': amountIn, 'amountOut':amountOut, 'amount':amount})
     
 def deleteBooks(request):
     if not request.user.is_authenticated():

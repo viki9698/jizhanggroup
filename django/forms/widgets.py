@@ -268,6 +268,14 @@ class TextInput(Input):
         if attrs is not None:
             self.input_type = attrs.pop('type', self.input_type)
         super(TextInput, self).__init__(attrs)
+        
+class NumberInput(Input):
+    input_type = 'number'
+
+    def __init__(self, attrs=None):
+        if attrs is not None:
+            self.input_type = attrs.pop('type', self.input_type)
+        super(NumberInput, self).__init__(attrs)
 
 
 class PasswordInput(TextInput):
