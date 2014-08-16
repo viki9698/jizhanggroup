@@ -1,14 +1,15 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
+<html lang="zh" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0" />
     <title>{% block title %}{% endblock %} - 记账簿</title>
 	<link rel="shortcut icon" type="image/x-icon" href="{% static 'books/css/images/favicon.ico'%}" />
 <link href="{% static 'books/css/style.css'%}" rel="stylesheet">
-	<script src="{% static 'books/js/functions.js'%}" type="text/javascript"></script>
+
 <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.8.3.min.js"></script>
+<script src="{% static 'books/js/functions.js'%}" type="text/javascript"></script>
     {% block css %}
     {% endblock %}
 
@@ -26,10 +27,43 @@
         margin:0px;
         padding:0px;
     }
-    table{
+      table {
+
+        width: 95%;
         margin-left:auto;
         margin-right:auto;
-    }
+        border-collapse:collapse;  
+        border-spacing:1px;  
+        padd:expression(this.cellPadding=0);  
+      }
+      table th {
+        background-color: silver;
+        border: 1px outset silver;
+        font-size: 0.9em;
+      }
+      table td {
+
+
+        border: 1px outset black;
+        font-size: 0.8em;
+        text-align: center;
+      }
+      table td:first-child {
+        text-align: center;
+      }
+      
+      table.small {
+        width: 60%;
+      }
+      
+      table.small td{
+        border:0px;
+        text-align:left;
+        padding-left:10px;
+      }
+      table.small tr{
+        border-bottom:1px outset black;
+      }
 
     </style>
 
@@ -47,7 +81,7 @@
 				<!-- end of header -->
 				<!-- navigation -->
 				<nav id="navigation">
-					<a href="#" class="nav-btn">HOME<span class="arr"></span></a>
+					<a href="#" class="nav-btn">选择页面<span class="arr"></span></a>
 					<ul>
 
             <li><a href="{%url 'books' %}" class="active">首页</a></li>
@@ -61,11 +95,11 @@
 
 				<!-- main -->
 				<div class="main">
-	
+											<h2>{% block subTitle %}{% endblock %}</h2>
 					<section class="post">
 
 						<div class="">
-							<h2>{% block subTitle %}{% endblock %}</h2>
+
 							 {% block content-header %}
           {% if error %}<div class="error">{{ error }}</div>{% endif %}
           {% if info %}<div class="info">{{ info }}</div>{% endif %}
@@ -83,7 +117,7 @@
 
 				</div>
 				<!-- end of main -->
-				<div class="socials">
+<!--				<div class="socials">
 					<div class="socials-inner">
 						<h3>Follow us</h3>
 						<ul>
@@ -95,20 +129,19 @@
 						</ul>
 						<div class="cl">&nbsp;</div>
 					</div>
-				</div>
+				</div>-->
 				<div id="footer">
 					<!-- end of footer-cols -->
 					<div class="footer-bottom">
 						<nav class="footer-nav">
-							<ul>
-								<li class="active"><a href="#">Home</a></li>
-								<li><a href="#">Services</a></li>
-								<li><a href="#">Projects</a></li>
-								<li><a href="#">Solutions</a></li>
-								<li><a href="#">Jobs</a></li>
-								<li><a href="#">Blog</a></li>
-								<li><a href="#">Contacts</a></li>
-							</ul>
+					<ul>
+
+            <li><a href="{%url 'books' %}" class="active">首页</a></li>
+            <li><a href="{%url 'books' %}">账号管理</a></li>
+            <li><a href="{%url 'books' %}">记账簿</a></li>
+            <li><a href="{%url 'contacts'%}">联系人</a></li>
+            <li><a href="{%url 'logout' %}">注销</a></li>
+					</ul>
 						</nav>
 						<p class="copy">&copy; Copyright 2014  <strong>Design by Rui.</strong></p>
 						<div class="cl">&nbsp;</div>

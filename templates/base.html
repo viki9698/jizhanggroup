@@ -28,31 +28,41 @@
         padding:0px;
     }
       table {
-        background-color: black;
+
         width: 95%;
         margin-left:auto;
         margin-right:auto;
+        border-collapse:collapse;  
+        border-spacing:1px;  
+        padd:expression(this.cellPadding=0);  
       }
       table th {
         background-color: silver;
-        border: 0px outset silver;
+        border: 1px outset silver;
         font-size: 0.9em;
       }
-      table tr {
-        background-color: white;
-      }
       table td {
-        background-color: transparent;
-        padding: 1px 12px;
+
+
+        border: 1px outset black;
         font-size: 0.8em;
         text-align: center;
       }
       table td:first-child {
-        text-align: left;
+        text-align: center;
       }
       
       table.small {
         width: 60%;
+      }
+      
+      table.small td{
+        border:0px;
+        text-align:left;
+        padding-left:20px;
+      }
+      table.small tr{
+        border-bottom:1px outset black;
       }
 
     </style>
@@ -71,7 +81,7 @@
 				<!-- end of header -->
 				<!-- navigation -->
 				<nav id="navigation">
-					<a href="#" class="nav-btn">HOME<span class="arr"></span></a>
+					<a href="#" class="nav-btn">选择页面<span class="arr"></span></a>
 					<ul>
 
             <li><a href="{%url 'books' %}" class="active">首页</a></li>
@@ -85,11 +95,11 @@
 
 				<!-- main -->
 				<div class="main">
-	
+											<h2>{% block subTitle %}{% endblock %}</h2>
 					<section class="post">
 
 						<div class="">
-							<h2>{% block subTitle %}{% endblock %}</h2>
+
 							 {% block content-header %}
           {% if error %}<div class="error">{{ error }}</div>{% endif %}
           {% if info %}<div class="info">{{ info }}</div>{% endif %}

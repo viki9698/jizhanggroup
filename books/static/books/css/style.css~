@@ -203,7 +203,7 @@ article, aside, details, footer, header, menu, nav, section { display: block; }
 	.slider ul.slides li .slide-cnt h2 { font-size: 22px; text-align: center;  line-height: 25px; padding-bottom: 16px; color: #fff; text-shadow: rgba(0,0,0,0.4) 0px 1px 2px; font-family: 'Ubuntu', sans-serif; font-weight: 700; }
 	.slider ul.slides li .slide-cnt a.grey-btn { display: none;  }
 
-	.main { padding: 10px 0 0 0; }
+	.main { padding: 7px 0 0 0; }
 	.main section { background: url(images/m-section-shadow.png) no-repeat center bottom; padding: 0 20px 20px 20px; }
 	.main .cols { margin: 0 0 0 0; }
 	.main .cols .col { width: 188px; float: none; display: block; padding-bottom: 22px; margin: 0 auto; }
