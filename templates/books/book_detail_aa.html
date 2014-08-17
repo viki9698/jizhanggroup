@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}记账簿详情{% endblock %}
+{% block preload_js %}
+<script tpye="text/javascript">
+$(function(){
+
+    $("input[name='remove']").click(function(){
+        var ids = "";
+        $("input:checked[name='checkItem']").each(function(){
+            ids += $(this).val()+",";
+        });
+        if (ids == "")
+        {
+            alert("请至少选择一项！");
+            return;
+        }
+        var flag = confirm("您确定要删除这些条目吗?");
+        if (flag)
+            location.href="/books/" + {{form.id}} + "/deleteItems/?ids="+ids;
+    });
+    
+    $("input[name='balance']").click(function(){
+        var flag = confirm("您确定该账单已经结清了吗?");
+        if (flag)
+            location.href="/books/" + {{form.id}} + "/balance/";
+    });
+
+    $("input[name='checkAll']").click(function(){
+            $("input[name='checkItem']").attr("checked", this.checked);
+    });
+}
+);
+</script>
+{% endblock %}
+{% block subTitle %}<b><i><um>{{form.name}}</um></i></b>{% endblock %}
+{% block content %}
+<table class="small">
+<tr><td>描述:&nbsp;&nbsp; {{form.description}}</td><td>所属人:&nbsp;&nbsp; {{form.create_by}}</td></tr>
+<tr><td>创建时间:&nbsp;&nbsp; {{form.create_date}}</td><td>相关人员: &nbsp;&nbsp;{%for contactBook in form.contact_book_set.all%}{{contactBook.contact.name}}&nbsp;&nbsp;{%endfor%}</td></tr>
+<tr><td colspan="2">账单:&nbsp;&nbsp; {%for k,v in iMap.items%}<font color={%if v >= 0%}"green"{%else%}"red"{%endif%}>{{k}}:{{v}}&nbsp;&nbsp;{%endfor%} </td></tr>
+</table>
+
+<p></p>
+<div><a href="{%url 'addItem_aa' form.id %}" style="margin-right:2%;">添加条目</a><input name="balance" type="button" value="账单已结清" style="margin-left:2%;margin-right:2%;"><input name="remove" type="button" value="删除" style="margin-left:2%;"></div>
+<p/>
+<table>
+    <tr><th><input type="checkbox" name="checkAll">全选</th><th>标题</th><th>金额</th><th>日期</th><th>垫付人</th><th>涉及人</th></tr>
+    {%for bill in bills%}
+    <tr title="备注:{{bill.description}}"><td><input type="checkbox" name="checkItem" value="{{bill.id}}"></td><td>{{bill.title}}</td><td>{{bill.amount}}</td>
+ <td>{{bill.date}}</td>
+  <td style="color:green;">{%for billItem in bill.bill_item_set.all%}
+        {%if billItem.amount > 0%}
+            {{billItem.contact.name}}: {{billItem.amount}}&nbsp;&nbsp;
+        {%endif%}
+    {%endfor%}
+ </td>
+ <td style="color:red;">
+    {%for billItem in bill.bill_item_set.all%}
+        {%if billItem.amount < 0%}
+            {{billItem.contact.name}}: {{billItem.amount}}&nbsp;&nbsp;
+        {%endif%}
+    {%endfor%}
+    </td></tr>
+    {%endfor%}
+</table>
+
+
+{% endblock %}

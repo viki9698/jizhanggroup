@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 import datetime
 # Create your models here.
 class Book_Type(models.Model):
+    code=models.CharField(max_length=100, null=True, blank=True)
     name=models.CharField(max_length=100)
     description=models.CharField(max_length=100, blank = True, null = True)
     create_date=models.DateField('date published', blank=True, 
@@ -40,7 +41,7 @@ class Bill(models.Model):
     description=models.CharField(max_length=100, blank = True, null = True)
     create_date=models.DateField('date published', blank=True, 
         default=datetime.datetime.now().date())
-    date = models.DateField('Date happen', blank=True, null = True)
+    date = models.DateField('Date happen', blank=True, default=datetime.datetime.now().date())
     book = models.ForeignKey(Book)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     create_by = models.ForeignKey(User)

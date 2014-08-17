@@ -1,3 +1,4 @@
+# coding=utf-8
 # Create your views here.
 from books.forms import BookForm, BookTypeForm, ItemForm, ContactForm
 from books.models import Book, Book_Type, Contact, Contact_Book,Bill,Bill_Item
@@ -16,7 +17,7 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             new_user = form.save()
-            return HttpResponseRedirect(getHost(request) + "/books/")
+            return render_to_response("registration/register_success.html", context_instance=RequestContext(request))
     else:
         form = UserCreationForm()
     return render_to_response("registration/register.html", {'form': form,}, context_instance=RequestContext(request))
@@ -84,22 +85,61 @@ def listContacts(request):
         return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)  
     l = Contact.objects.filter(create_by=request.user)
     return render_to_response('books/contacts.html', {'forms':l})
-
     
 def bookDetail(request, bookId):
     if not request.user.is_authenticated():
         return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)  
     book = Book.objects.get(id=bookId)
-    amountIn = 0
-    amountOut = 0
-    bills = book.bill_set.all().order_by('-date', '-id')
+    bookType = book.book_type.name
+    if bookType.find("AA") >= 0:
+        bills = book.bill_set.all().order_by('-date', '-id')
+        iMap = {}
+        for bill in bills:
+            for item in bill.bill_item_set.all():
+                if iMap.has_key(item.contact.name):
+                    iMap[item.contact.name] += item.amount
+                else:
+                    iMap[item.contact.name] = item.amount
+            
+        return render_to_response('books/book_detail_aa.html', {'form':book, 'bills':bills, 'iMap':iMap})    
+    else:
+        amountIn = 0
+        amountOut = 0
+        bills = book.bill_set.all().order_by('-date', '-id')
+        for bill in bills:
+            if bill.amount > 0:
+                amountIn += bill.amount
+            else:
+                amountOut -= bill.amount
+        amount = amountIn - amountOut
+        return render_to_response('books/book_detail.html', {'form':book, 'bills':bills, 'amountIn': amountIn, 'amountOut':amountOut, 'amount':amount})
+        
+def balance(request, bookId):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)  
+    book = Book.objects.get(id=bookId)
+    bills = book.bill_set.all()
+    dic = {}
     for bill in bills:
-        if bill.amount > 0:
-            amountIn += bill.amount
-        else:
-            amountOut -= bill.amount
-    amount = amountIn - amountOut
-    return render_to_response('books/book_detail.html', {'form':book, 'bills':bills, 'amountIn': amountIn, 'amountOut':amountOut, 'amount':amount})
+        for item in bill.bill_item_set.all():
+            if dic.has_key(item.contact.id):
+                dic[item.contact.id] += item.amount
+            else:
+                dic[item.contact.id] = item.amount
+    num = 0
+    g = Bill(title='结账', book=book, create_by=request.user)
+    billItems = []
+    for k, v in dic.items():
+        if v > 0:
+            num +=v
+        billItems.append(Bill_Item(contact=Contact(pk=k), amount=-v))
+    g.amount = num
+    g.save()    
+    for billItem in billItems:
+        billItem.bill = g
+        billItem.save()
+    
+    return bookDetail(request, bookId)    
     
 def deleteBooks(request):
     if not request.user.is_authenticated():
@@ -148,6 +188,32 @@ def addItem(request, bookId):
         form = ItemForm(initial={'type':'1'})
     contacts = [contactBook.contact for contactBook in Contact_Book.objects.filter(book=Book(pk=bookId))]
     return  render_to_response('books/item_form.html', {'form':form, 'contacts':contacts},context_instance=RequestContext(request))
+    
+def addItem_aa(request, bookId):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)  
+    if request.method == 'POST' :
+        #contactIds = request.REQUEST.getList("contact")
+        form = ItemForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            billItems = []
+            g = Bill(title=cd['title'], description=cd['description'], book=Book(pk=bookId), date=cd['date'], create_by=request.user, amount=cd['amount'])
+            g.save()
+            for contactId in request.POST["contactId0s"].strip(",").split(","):
+                subAmount = request.POST['subCount0_'+contactId]
+                billItems.append(Bill_Item(contact=Contact(pk=contactId), amount=subAmount, bill=g))
+
+            for contactId in request.POST["contactIds"].strip(",").split(","):
+                subAmount = -float(request.POST['subCount_'+contactId])
+                billItems.append(Bill_Item(contact=Contact(pk=contactId), amount=subAmount, bill=g))
+            for billItem in billItems:
+                billItem.save()
+            return HttpResponseRedirect(getHost(request) + "/books/" + bookId + "/")
+    else:
+        form = ItemForm(initial={'type':'1'})
+    contacts = [contactBook.contact for contactBook in Contact_Book.objects.filter(book=Book(pk=bookId))]
+    return  render_to_response('books/item_form_aa.html', {'form':form, 'contacts':contacts},context_instance=RequestContext(request))
     
 def addBookType(request):
     if not request.user.is_authenticated():

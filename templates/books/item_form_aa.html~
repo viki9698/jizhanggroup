@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% block title %}添加数据项{% endblock %}
+{% block preload_js %}
+<script tpye="text/javascript">
+$(function(){
+    $("#id_amount").change(function(){
+        autoPopulateSubAmountInput();
+    });
+    $("input[name='contact']").click(function(){
+        if (!$(this).attr("checked"))
+        {
+            $("input[name='subCount_" + $(this).val() + "']").val("");
+            $("input[name='subCount_" + $(this).val() + "']").attr("disabled","disabled");
+        } else 
+        {
+            $("input[name='subCount_" + $(this).val() + "']").removeAttr("disabled");
+        }
+        autoPopulateSubAmountInput();
+    });
+    
+    $("input[name='contact0']").click(function(){
+        if (!$(this).attr("checked"))
+        {
+            $("input[name='subCount0_" + $(this).val() + "']").val("");
+            $("input[name='subCount0_" + $(this).val() + "']").attr("disabled","disabled");
+        } else 
+        {
+            $("input[name='subCount0_" + $(this).val() + "']").removeAttr("disabled");
+        }
+    });
+    
+    $("input[name='save']").click(function(){
+        return checkForm();
+    });
+    
+    function autoPopulateSubAmountInput() {
+        var num = $("input:checked[name='contact']").length;
+        var sum = 0;
+        $("input:checked[name='contact0']").each(function(){
+            sum += $("input[name='subCount0_" + $(this).val() + "']").val()/1;    
+        });
+        $("input:checked[name='contact']").each(function(index){
+            var contantId = $(this).val();
+            var subAmount = (sum/num).toFixed(2);
+            $("input[name='subCount_" + contantId + "']").val(subAmount);
+            sum -= subAmount;
+            num --;
+        });
+    }
+    
+    function checkForm(){
+        if ($.trim($("#id_title").val()) == "")
+        {
+            alert("请输入名称。");
+            return false;
+        }
+        var sum = 0;
+        var id0s = "";
+        var flag = true;
+        $("input:checked[name='contact0']").each(function(){
+            var contantId = $(this).val();
+            id0s += contantId +",";
+            var subAcount = $("input[name='subCount0_" + contantId + "']").val()/1;
+            if ( subAcount <= 0 ) {
+                alert("请输入正确的垫付人员的金额。");
+                flag = false;
+                return false;
+            }
+            sum += subAcount;    
+        });
+        if (!flag)
+            return false;
+        $("input[name='amount']").val(sum);
+        if (id0s == "")
+        {
+            alert("请至少选择一个垫付人！");
+            return false;
+        }
+        var ids = "";
+        $("input:checked[name='contact']").each(function(){
+            ids += $(this).val()+",";
+            var contantId = $(this).val();
+            var subAcount = $("input[name='subCount_" + contantId + "']").val();
+            if ( subAcount <= 0 ) {
+                alert("请输入正确的相关人员的金额。");
+                flag = false;
+                return false;
+            }
+            sum -= subAcount;
+        });
+        if (!flag) return false;
+        if (ids == "")
+        {
+            alert("请至少选择一项涉及人员！");
+            return false;
+        }
+        if (Math.abs(sum) > 0.01) {
+            alert("总金额不等于所选相关人员金额之和。差额:" + sum);
+            return false;
+        }
+        $("input[name='contactIds']").val(ids);
+        $("input[name='contactId0s']").val(id0s);
+        return true;
+    }
+}
+);
+</script>
+{% endblock %}
+{% block subTitle %}新建记录{% endblock %}
+
+{% block content %}
+{% if form.errors %}
+    <p style="color:red;"
+        Please correct the form
+    </p>
+{% endif %}
+<form  method="post" action="">{% csrf_token %}
+
+<table>
+<tr><th><label for="id_title">名称:</label></th><td><input id="id_title" name="title" type="text" required /></td></tr>
+<tr><th><label for="id_description">描述:</label></th><td><input id="id_description" name="description" type="text" /></td></tr>
+<tr><th><label for="id_contact_0">垫付人:</label></th><td><ul>
+{%for contact in contacts%}
+<p>
+<label for="id_contact0_{{ forloop.counter }}"><input id="id_contact0_{{ forloop.counter }}" name="contact0" type="checkbox" value="{{contact.id}}"/>{{contact.name}}</label>&nbsp;<input type="number" step="0.01" name="subCount0_{{contact.id}}" style="width:80px;" disabled="disabled"></p>
+
+{%endfor%}
+</ul></td></tr>
+<tr><th><label for="id_date">日期:</label></th><td><input id="id_date" name="date" type="date" required /></td></tr>
+<tr><th><label for="id_contact_0">相关人员:</label></th><td><ul>
+{%for contact in contacts%}
+<p>
+<label for="id_contact_{{ forloop.counter }}"><input id="id_contact_{{ forloop.counter }}" name="contact" type="checkbox" value="{{contact.id}}"/>{{contact.name}}</label>&nbsp;<input type="number" step="0.01" name="subCount_{{contact.id}}" style="width:80px;" disabled="disabled"></p>
+
+{%endfor%}
+</ul></td></tr>
+    </table>
+    <input type="submit" name="save" value="添加">
+<input type="hidden" name="contactIds">
+<input type="hidden" name="contactId0s">
+<input type="hidden" name="amount"><input type="hidden" name="type" value="0">
+</form>
+
+
+{% endblock %}
+

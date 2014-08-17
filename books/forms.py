@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class BookForm(forms.ModelForm):
     name = forms.CharField()
-    description = forms.CharField()
+    description = forms.CharField(required=False)
     class Meta :
         model = Book
         fields = ('name', 'description', 'book_type')
@@ -26,6 +26,7 @@ class ItemForm(forms.Form):
     type = forms.CharField(label='类型', widget=forms.RadioSelect(choices=[('0', '支出'),('1', '存入')]))
     
 class BookTypeForm(forms.Form):
+    code = forms.CharField()
     name = forms.CharField()
     description = forms.CharField()
 

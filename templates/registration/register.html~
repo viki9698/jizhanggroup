@@ -28,6 +28,18 @@
     width:40%;
     float:left;
  }
+ #reg input {
+    height:20px;
+    font-size:1em;
+    width:40%;
+    float:right;
+ }
+ #reg textarea {
+    height:60px;
+    font-size:1em;
+    width:40%;
+    float:right;
+ }
  
  </style>
  {% endblock %}
