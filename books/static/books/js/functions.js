@@ -1,14 +1,4 @@
 $(function() {
-	$(document).on('focusin', '.field, textarea', function() {
-		if(this.title==this.value) {
-			this.value = '';
-		}
-	}).on('focusout', '.field, textarea', function(){
-		if(this.value=='') {
-			this.value = this.title;
-		}
-	});
-
 	$('#navigation ul li:first-child').addClass('first');
 	$('.footer-nav ul li:first-child').addClass('first');
 
@@ -17,6 +7,14 @@ $(function() {
 		$(this).find('span').toggleClass('active')
 		return false;
 	})
+    var navTitle = $('#navigation > a').text();
+    $('#navigation ul li a').each(function(){
+        if ($(this).text() == navTitle)
+        {
+            $(this).addClass('active');
+            return false;
+        }
+    });
 });
 
 $(window).load(function() {
