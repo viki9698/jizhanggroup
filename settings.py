@@ -13,7 +13,7 @@ DATABASES['default'] = {'ENGINE': 'dbindexer', 'TARGET': 'native'}
 
 #host = "http://jizhanggroup.appsp0t.com"
 LOGIN_URL = "/login/"
-LOGIN_REDIRECT_URL = '/books/'
+LOGIN_REDIRECT_URL = '/index/'
 
 DATE_FORMAT = 'Y-n-j'
 

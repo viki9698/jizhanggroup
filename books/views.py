@@ -63,7 +63,7 @@ def listBook(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)    
     l = Book.objects.filter(create_by=request.user)
-    return render_to_response('books/books.html', {'forms':l})
+    return render_to_response('books/books.html', {'forms':l},context_instance=RequestContext(request))
     
 def addContact(request):
     if not request.user.is_authenticated():
@@ -84,7 +84,7 @@ def listContacts(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)  
     l = Contact.objects.filter(create_by=request.user)
-    return render_to_response('books/contacts.html', {'forms':l})
+    return render_to_response('books/contacts.html', {'forms':l},context_instance=RequestContext(request))
     
 def bookDetail(request, bookId):
     if not request.user.is_authenticated():

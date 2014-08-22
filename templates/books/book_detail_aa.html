@@ -35,9 +35,9 @@ $(function(){
 {% block subTitle %}<b><i><um>{{form.name}}</um></i></b>{% endblock %}
 {% block content %}
 <table class="small">
-<tr><td>描述:&nbsp;&nbsp; {{form.description}}</td><td>所属人:&nbsp;&nbsp; {{form.create_by}}</td></tr>
-<tr><td>创建时间:&nbsp;&nbsp; {{form.create_date}}</td><td>相关人员: &nbsp;&nbsp;{%for contactBook in form.contact_book_set.all%}{{contactBook.contact.name}}&nbsp;&nbsp;{%endfor%}</td></tr>
-<tr><td colspan="2">账单:&nbsp;&nbsp; {%for k,v in iMap.items%}<font color={%if v >= 0%}"green"{%else%}"red"{%endif%}>{{k}}:{{v}}&nbsp;&nbsp;{%endfor%} </td></tr>
+<tr><td>描述: {{form.description}}</td><td>所属人: {{form.create_by}}</td></tr>
+<tr><td>类型: {{form.book_type}}</td><td>相关人员: {%for contactBook in form.contact_book_set.all%}{{contactBook.contact.name}}&nbsp;&nbsp;{%endfor%}</td></tr>
+<tr><td colspan="2">账单: {%for k,v in iMap.items%}<font color={%if v >= 0%}"green"{%else%}"red"{%endif%}>{{k}}:{{v}}&nbsp;{%endfor%} </td></tr>
 </table>
 
 <p></p>

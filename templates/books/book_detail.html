@@ -26,11 +26,11 @@ $(function(){
 );
 </script>
 {% endblock %}
-{% block subTitle %}记账簿<b><i><um>{{form.name}}</um></i></b>详情{% endblock %}
+{% block subTitle %}<b><i><um>{{form.name}}</um></i></b>{% endblock %}
 {% block content %}
 <table class="small">
 <tr><td>描述: {{form.description}}</td><td>所属人: {{form.create_by}}</td></tr>
-<tr><td>创建时间: {{form.create_date}}</td><td>相关人员: {%for contactBook in form.contact_book_set.all%}{{contactBook.contact.name}}&nbsp;&nbsp;{%endfor%}</td></tr>
+<tr><td>类型: {{form.book_type}}</td><td>相关人员: {%for contactBook in form.contact_book_set.all%}{{contactBook.contact.name}}&nbsp;{%endfor%}</td></tr>
 <tr><td>总收入: <font color='green'><b>{{amountIn}}</b></font></td><td>总支出: <font color="red"><b>{{amountOut}}</b></font></td></tr>
 <tr><td colspan="2">结余: <font color={%if amount >= 0 %}'green'{%else%}'red'{%endif%}><b>{{amount}}</b></font></td></tr>
 

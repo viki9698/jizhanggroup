@@ -69,7 +69,7 @@ def login(request, template_name='registration/login.html',
                             current_app=current_app)
 
 
-def logout(request, next_page=None,
+def logout(request, next_page='/index/',
            template_name='registration/logged_out.html',
            redirect_field_name=REDIRECT_FIELD_NAME,
            current_app=None, extra_context=None):

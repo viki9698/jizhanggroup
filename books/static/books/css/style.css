@@ -22,7 +22,7 @@ body {
 
 }
       table {
-        width: 95%;
+        width: 99%;
         margin-left:auto;
         margin-right:auto;
         border-collapse:collapse;  
@@ -51,7 +51,6 @@ body {
       table.small td{
         border:0px;
         text-align:left;
-        padding-left:20px;
       }
       table.small tr{
         border-bottom:1px outset black;
@@ -129,7 +128,7 @@ article, aside, details, footer, header, menu, nav, section { display: block; }
 .main { padding: 10px 0px 0px;}
 .main h2 { font-size: 22px; color: #2d5900; line-height: 22px; padding-bottom: 8px; font-family: 'Ubuntu', sans-serif; font-weight: 500; }
 .main h3 { font-size: 18px; color: #5e5e5e; line-height: 22px; padding-bottom: 8px; font-family: 'Ubuntu', sans-serif; font-weight: 500;  }
-.main section { clear: both; padding: 0 20px 60px; }
+.main section { clear: both; padding: 0 20px 60px;}
 .main ul { list-style: none; list-style-position: outside; }
 .main ul li { padding-bottom: 6px; padding-left: 10px;}
 .main ul li a { color: #2b9208; text-decoration: underline; } 
@@ -187,6 +186,9 @@ article, aside, details, footer, header, menu, nav, section { display: block; }
 	.shell { width: 748px; }
 	#navigation ul li a { padding: 0 22px;  }
 	#navigation ul li.first a { padding-left: 26px; }
+     table.small {
+        width: 99%;
+      }
 	
 	.slider-holder { position: relative; }
 	.slider-holder span.slider-b { width: 748px; height: 30px; position: absolute; bottom: -13px; left: 0px; z-index: 100;}
@@ -246,7 +248,9 @@ article, aside, details, footer, header, menu, nav, section { display: block; }
 	#navigation ul li { display: block; line-height: 36px !important; float: none; background: url(images/navigation.png) repeat 0 0;  }
    #navigation ul li a.active { display: none;}
 	#navigation ul li a { padding: 0 22px; }
-
+     table.small {
+        width: 99%;
+      }
 
 
 	.main { padding: 10px 0 0 0; }
