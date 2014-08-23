@@ -23,7 +23,7 @@
       {{ form.as_p}}
       <input type="submit" value="登录" style="margin-right:2%;">
       <a href="/register/" style="margin-left:2%;">注册</a>
-      <input type="text" name="firstName"/>
+      <input type="hidden" name="firstName"/>
       <br><br>
       <font size="1em">使用合作网站账号登录记账簿：</font><br><br><span id="qqLoginBtn"></span>
 <script type="text/javascript">
