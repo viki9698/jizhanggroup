@@ -2,16 +2,14 @@
 {% block title %}登录{% endblock %}
 {% block css %}
  <style type="text/css">
- #reg{
-    font-weight:400;
- }
- #reg input {
-    height:20px;
-    font-size:1em;
- }
  
  </style>
  {% endblock %}
+     {% block preload_js %}
+ <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101095767" data-redirecturi="http://jizhanggroup.appsp0t.com/login/" charset="utf-8" data-callback="true"></script>
+     {% endblock %}
+
+ {% block navTitle %}登录{% endblock %}
 {% block subTitle %}登录{% endblock %}
 
 {% block content %}
@@ -20,11 +18,38 @@
         Please correct the login form
     </p>
 {% endif %}
-<form  method="post" action="" id="reg">
+<form  method="post" action="/qqLogin/" id="reg">
 {% csrf_token %}
       {{ form.as_p}}
       <input type="submit" value="登录" style="margin-right:2%;">
       <a href="/register/" style="margin-left:2%;">注册</a>
+      <input type="text" name="firstName"/>
+      <br><br>
+      <font size="1em">使用合作网站账号登录记账簿：</font><br><br><span id="qqLoginBtn"></span>
+<script type="text/javascript">
+    if (QC.Login.check())
+    {
+        QC.Login.signOut();
+    }
+    QC.Login({
+       btnId:"qqLoginBtn"    //插入按钮的节点id
+}, function(reqData, opts){
+    QC.Login.getMe(function(openId, accessToken){
+        var nickName = QC.String.escHTML(reqData.nickName);
+        var userName = openId;
+        $("#id_username").val(userName);
+        $("#id_password").val("123456");              
+        $("input[name='firstName']").val(nickName);
+        $("#reg").attr("action", "");
+        $("#reg").submit();
+    });
+       }));
+   }, function(opts){//注销成功
+         alert('QQ登录 注销成功');
+   }
+
+);
+</script>
 </form>
 {% endblock %}
 

@@ -10,7 +10,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.template import RequestContext 
-
+from django.contrib.auth.views import login
 
 def register(request):
     if request.method == 'POST':
@@ -21,6 +21,19 @@ def register(request):
     else:
         form = UserCreationForm()
     return render_to_response("registration/register.html", {'form': form,}, context_instance=RequestContext(request))
+    
+def qqLogin(request):
+    if request.method == 'POST':
+        username = request.POST.get('username', '')
+        if not User.objects.filter(username=username) :        
+            user = User()
+            user.username = username
+            user.first_name = request.POST.get('firstName', '')
+            user.set_password('123456')           
+            user.save();
+        return login(request)
+        
+        
 '''
 def login(request):
     if request.method == 'POST':

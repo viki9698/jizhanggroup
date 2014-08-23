@@ -256,7 +256,7 @@ article, aside, details, footer, header, menu, nav, section { display: block; }
         width: 99%;
       }
 
-	#userDiv { float:none; }
+
 	.main { padding: 10px 0 0 0; }
 	.main section {  padding: 0 20px 20px 20px; }
 	.main .cols { margin: 0 0 0 0; }

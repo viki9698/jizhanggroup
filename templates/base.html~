@@ -9,6 +9,7 @@
 <link href="{% static 'books/css/style.css'%}" rel="stylesheet">
 
 <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.8.3.min.js"></script>
+
 <script src="{% static 'books/js/functions.js'%}" type="text/javascript"></script>
     {% block css %}
     {% endblock %}
@@ -21,85 +22,6 @@
   });
   </script>
     {% block extra-head %}{% endblock %}
-    <style type="text/css">
-    body {
-        text-align:center;
-        margin:0px;
-        padding:0px;
-        font-size:1em;
-    }
-      table {
-        width: 95%;
-        margin-left:auto;
-        margin-right:auto;
-        border-collapse:collapse;  
-        border-spacing:1px;  
-        padd:expression(this.cellPadding=0);  
-      }
-      table th {
-        background-color: silver;
-        border: 1px outset silver;
-        font-size: 0.9em;
-      }
-      table td {
-        border: 1px outset black;
-        font-size: 0.8em;
-        text-align: center;
-      }
-      table td:first-child {
-        text-align: center;
-      }
-      
-      table.small {
-        width: 60%;
-      }
-      
-      table.small td{
-        border:0px;
-        text-align:left;
-        padding-left:20px;
-      }
-      table.small tr{
-        border-bottom:1px outset black;
-      }
-      
-      input, textarea, select{
-        border: 1px solid #bfbfbf;
-        padding: 0.2em;
-        font-size: 1.0em;
-        line-height: 1.2em;
-        background: #ffffff;
-        background: linear-gradient(top, #ffffff 0%, #ededed 8%, #ffffff 100%);
-        border-radius: 4px;
-        box-shadow: 2px 2px 5px hsla(0, 0%, 16.667%,0.1);
-      }
-    input[type='button'] {
-    text-decoration:none;
-    height:28px;
-    border-radius: 3px;
-    margin-bottom:10px;
-    margin-top: 10px;
-    border: 1px solid #bfbfbf;
- }
-  input[type='submit'] {
-    text-decoration:none;
-    height:40px;
-    font: 1.25em 'BehasNeueRegular';
-    background-color: #b01c20;
-    border-radius: 8px;
-    color: white;
-    float:none;
-    margin-bottom:10px;
-    background: linear-gradient(top, rgb(241, 92, 96) 0%, rgb(17, 92, 96) 100%);
-    margin-top: 10px;
-    box-shadow: 5px 5px 5px hsla(0, 0%, 26.677%, 0.8);
-    text-shadow: 0px 1px black;
-    border: 1px solid #bfbfbf;
-    width:20%;
- }
-      
-
-    </style>
 
 
 </head>
@@ -115,15 +37,20 @@
 				<!-- end of header -->
 				<!-- navigation -->
 				<nav id="navigation">
-					<a href="#" class="nav-btn">选择页面<span class="arr"></span></a>
+					<a href="#" class="nav-btn">{% block navTitle %}首页{% endblock %}<span class="arr"></span></a>
 					<ul>
 
-            <li><a href="{%url 'books' %}" class="active">首页</a></li>
-            <li><a href="{%url 'books' %}">账号管理</a></li>
+            <li><a href="{%url 'index' %}">首页</a></li>
+            <li><a href="{%url 'account' %}">账号管理</a></li>
             <li><a href="{%url 'books' %}">记账簿</a></li>
             <li><a href="{%url 'contacts'%}">联系人</a></li>
-            <li><a href="{%url 'logout' %}">注销</a></li>
-					</ul>
+					<div id="userDiv">
+            {%if request.user.is_authenticated%}
+            <li>{{request.user.get_full_name}},欢迎您<a href="{%url 'logout' %}" class="clean">注销</a></li>
+            {%else%}
+            <li><a href="{%url 'login' %}">登录</a></li>
+            {%endif%}
+					</div></ul>
 				</nav>
 				<!-- end of navigation -->
 
