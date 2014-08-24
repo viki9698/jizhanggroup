@@ -18,7 +18,7 @@
         Please correct the login form
     </p>
 {% endif %}
-<form  method="post" action="/qqLogin/" id="reg">
+<form  method="post" action="" id="reg">
 {% csrf_token %}
       {{ form.as_p}}
       <input type="submit" value="登录" style="margin-right:2%;">
@@ -40,7 +40,7 @@
         $("#id_username").val(userName);
         $("#id_password").val("123456");              
         $("input[name='firstName']").val(nickName);
-        $("#reg").attr("action", "");
+        $("#reg").attr("action", "/qqLogin/");
         $("#reg").submit();
     });
        }));

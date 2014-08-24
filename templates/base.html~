@@ -46,7 +46,7 @@
             <li><a href="{%url 'contacts'%}">联系人</a></li>
 					<div id="userDiv">
             {%if request.user.is_authenticated%}
-            <li>{{request.user.get_full_name}},欢迎您<a href="{%url 'logout' %}" class="clean">注销</a></li>
+            <li>{{request.user.get_full_name}}, 欢迎您<a href="{%url 'logout' %}" class="clean">注销</a></li>
             {%else%}
             <li><a href="{%url 'login' %}">登录</a></li>
             {%endif%}
