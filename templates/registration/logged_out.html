@@ -1,0 +1,18 @@
+﻿{% extends 'base.html' %}
+{% block title %}注销成功{% endblock %}
+     {% block preload_js %}
+ <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101095767"></script>
+<script type="text/javascript">
+if (QC.Login.check())
+{
+    QC.Login.signOut();
+}
+</script>
+ 
+ {% endblock %}
+
+{% block subTitle %}注销成功{% endblock %}
+
+{% block content %}
+<a href="{%url 'login'%}">前往登录</a>
+{% endblock %}

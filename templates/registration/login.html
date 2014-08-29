@@ -6,8 +6,9 @@
  </style>
  {% endblock %}
      {% block preload_js %}
- <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101095767" data-redirecturi="http://jizhanggroup.appsp0t.com/login/" charset="utf-8" data-callback="true"></script>
-     {% endblock %}
+ <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101095767" data-redirecturi="http://jizhanggroup.appsp0t.com/login/" data-callback="true" charset="utf-8"></script>
+ 
+ {% endblock %}
 
  {% block navTitle %}登录{% endblock %}
 {% block subTitle %}登录{% endblock %}
@@ -27,24 +28,36 @@
       <br><br>
       <font size="1em">使用合作网站账号登录记账簿：</font><br><br><span id="qqLoginBtn"></span>
 <script type="text/javascript">
-    if (QC.Login.check())
-    {
-        QC.Login.signOut();
-    }
     QC.Login({
        btnId:"qqLoginBtn"    //插入按钮的节点id
-}, function(reqData, opts){
-    QC.Login.getMe(function(openId, accessToken){
-        var nickName = QC.String.escHTML(reqData.nickName);
-        var userName = openId;
-        $("#id_username").val(userName);
-        $("#id_password").val("123456");              
-        $("input[name='firstName']").val(nickName);
-        $("#reg").attr("action", "/qqLogin/");
-        $("#reg").submit();
-    });
+}, function(reqData, opts){//登录成功
+       //根据返回数据，更换按钮显示状态方法
+       var dom = document.getElementById(opts['btnId']),
+       _logoutTemplate=[
+            //头像
+            '<span><img src="{figureurl}" class="{size_key}"/></span>',
+            //昵称
+            '<span>{nickname}</span>',
+            //退出
+            '<span><a href="javascript:QC.Login.signOut();">退出</a></span>'    
+       ].join("");
+       dom && (dom.innerHTML = QC.String.format(_logoutTemplate, {
+           nickname : QC.String.escHTML(reqData.nickname), //做xss过滤
+           figureurl : reqData.figureurl
        }));
+       $("input[name='firstName']").val(QC.String.escHTML(reqData.nickname));
+    QC.Login.check()
+    {
+        QC.Login.getMe(function(openId, accessToken){
+            var userName = openId;
+            $("#id_username").val(userName);
+            $("#id_password").val("123456");              
+            $("#reg").attr("action", "/qqLogin/");
+            $("#reg").submit();
+        }); 
+    } 
    }, function(opts){//注销成功
+         alert('QQ登录 注销成功');
    }
 
 );

@@ -69,7 +69,7 @@ def login(request, template_name='registration/login.html',
                             current_app=current_app)
 
 
-def logout(request, next_page='/index/',
+def logout(request, next_page='',
            template_name='registration/logged_out.html',
            redirect_field_name=REDIRECT_FIELD_NAME,
            current_app=None, extra_context=None):
@@ -82,15 +82,7 @@ def logout(request, next_page='/index/',
         # Redirect to this page until the session has been cleared.
         return HttpResponseRedirect(getHost() + next_page)
 
-    current_site = get_current_site(request)
-    context = {
-        'site': current_site,
-        'site_name': current_site.name,
-        'title': _('Logged out')
-    }
-    if extra_context is not None:
-        context.update(extra_context)
-    return TemplateResponse(request, template_name, context,
+    return TemplateResponse(request, template_name, None,
         current_app=current_app)
 
 
