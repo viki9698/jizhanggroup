@@ -211,7 +211,7 @@ class AbstractBaseUser(models.Model):
         return getattr(self, self.USERNAME_FIELD)
 
     def __str__(self):
-        return self.get_username()
+        return self.get_full_name() if self.get_full_name() else self.get_username()
 
     def natural_key(self):
         return (self.get_username(),)

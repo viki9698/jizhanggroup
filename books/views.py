@@ -114,7 +114,7 @@ def bookDetail(request, bookId):
                 else:
                     iMap[item.contact.name] = item.amount
             
-        return render_to_response('books/book_detail_aa.html', {'form':book, 'bills':bills, 'iMap':iMap})    
+        return render_to_response('books/book_detail_aa.html', {'form':book, 'bills':bills, 'iMap':iMap},context_instance=RequestContext(request))    
     else:
         amountIn = 0
         amountOut = 0
@@ -125,7 +125,7 @@ def bookDetail(request, bookId):
             else:
                 amountOut -= bill.amount
         amount = amountIn - amountOut
-        return render_to_response('books/book_detail.html', {'form':book, 'bills':bills, 'amountIn': amountIn, 'amountOut':amountOut, 'amount':amount})
+        return render_to_response('books/book_detail.html', {'form':book, 'bills':bills, 'amountIn': amountIn, 'amountOut':amountOut, 'amount':amount},context_instance=RequestContext(request))
         
 def balance(request, bookId):
     if not request.user.is_authenticated():
@@ -246,7 +246,7 @@ def listBookTypes(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect(getHost(request) + '/login/?next=%s' % request.path)  
     l = Book_Type.objects.all()
-    return render_to_response('books/book_types.html', {'forms':l})
+    return render_to_response('books/book_types.html', {'forms':l},context_instance=RequestContext(request))
     
 def deleteBookTypes(request):
     if not request.user.is_authenticated():
