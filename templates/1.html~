@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html manifest-"offline.manifest">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>1</title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.css"/>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
+    <script>
+        $(document).ready(function(e){
+            alert("document.ready triger");
+        });
+        
+
+        
+        $(document).delegate("#page1", "pageinit", function(){
+            alert("page1.pageinit");
+        });
+        $(document).delegate("#page1", "pageshow", function(){
+            alert("page1.pageshow");
+        });
+        
+        $(document).delegate("#page2", "pageinit", function(){
+            alert("page2.pageinit");
+        });
+        $(document).delegate("#page2", "pageshow", function(){
+            alert("page2.pageshow");
+        });
+    </script>
+</head>
+<body>
+    <section id="page1" data-role="page">
+        <header data-role="header">
+            <h1>JQuery Mobile</h1>
+        </header>
+        <div class="content" data-role="content">
+            <p><a href="#page2">Hello World!</a></p>
+        </div>
+        <footer data-role="footer">
+            <h1>footer</h1>
+        </footer>
+    </section>
+    <section id="page2" data-role="dialog" data-transition="slidefade">
+        <header data-role="header">
+            <h1>second page</h1>
+        </header>
+        <div class="content" data-role="content">
+            <a href="#page1" data-role="button" data-theme="b" data-rel="back">first page</a>
+            <a href="#" data-role="button" data-theme="b" onclick="$('#page2').dialog('close')"> close</a>
+        </div>
+    </section>
+    
+    
+</body>
+</head>
+</html>

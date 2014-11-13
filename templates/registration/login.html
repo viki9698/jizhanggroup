@@ -19,11 +19,19 @@
         Please correct the login form
     </p>
 {% endif %}
-<form  method="post" action="" id="reg">
+
+<form  method="post" action="" id="reg" style="max-width:500px;margin:0 auto;">
 {% csrf_token %}
       {{ form.as_p}}
-      <input type="submit" value="登录" style="margin-right:2%;">
-      <a href="/register/" style="margin-left:2%;">注册</a>
+      
+      <fieldset class="ui-grid-a" >
+        <div class="ui-block-a" >
+      <input type="submit"  value="登录" style="margin-right:2%;">
+        </div>
+        <div class="ui-block-b">
+      <a href="/register/" style="margin-left:2%;" data-ajax="false" data-role="button">注册</a>
+        </div>
+      </fieldset>
       <input type="hidden" name="firstName"/>
       <br><br>
       <font size="1em">使用合作网站账号登录记账簿：</font><br><br><span id="qqLoginBtn"></span>
