@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}添加联系人{% endblock %}
+{% block preload_js %}
+
+{% endblock %}
+{% block subTitle %}添加联系人{% endblock %}
+
+{% block content %}
+{% if form.errors %}
+    <p style="color:red;"
+       请更新联系人表单
+    </p>
+{% endif %}
+<form  method="post" action="">
+{% csrf_token %}
+
+    <table>
+        {{form.as_table}}
+    </table>
+    <input type="submit" value="添加" name="save">
+</form>
+{% endblock %}
+

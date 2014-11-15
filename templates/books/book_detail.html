@@ -18,10 +18,6 @@ $(function(){
         if (flag)
             location.href="/books/" + {{form.id}} + "/deleteItems/?ids="+ids;
     });
-
-    $("input[name='checkAll']").click(function(){
-            $("input[name='checkItem']").attr("checked", this.checked);
-    });
 }
 );
 </script>
@@ -40,9 +36,9 @@ $(function(){
 <div><a href="{%url 'addItem' form.id %}" style="margin-right:2%;">添加条目</a><input name="remove" type="button" value="删除" style="margin-left:2%;"></div>
 <p/>
 <table>
-    <tr><th><input type="checkbox" name="checkAll">全选</th><th>标题</th><th>金额</th><th>类型</th><th>日期</th><th>涉及人员</th></tr>
+    <tr><th><input type="checkbox" name="checkAll" id="checkAll"><label for="checkAll">全选</label></th><th>标题</th><th>金额</th><th>类型</th><th>日期</th><th>涉及人员</th></tr>
     {%for bill in bills%}
-    <tr style="{%if bill.amount > 0%} color:green; {%else%} color:red; {%endif%}" title="备注:{{bill.description}}"><td><input type="checkbox" name="checkItem" value="{{bill.id}}"></td><td>{{bill.title}}</td><td>{{bill.amount}}</td>{%if bill.amount > 0%}<td>收入</td>{%else%}<td>支出</td>{%endif%}<td>{{bill.date}}</td><td>
+    <tr style="{%if bill.amount > 0%} color:green; {%else%} color:red; {%endif%}" title="备注:{{bill.description}}"><td><input type="checkbox" name="checkItem" value="{{bill.id}}" id="{{bill.id}}"><label for="{{bill.id}}">&nbsp;</label></td><td>{{bill.title}}</td><td>{{bill.amount}}</td>{%if bill.amount > 0%}<td>收入</td>{%else%}<td>支出</td>{%endif%}<td>{{bill.date}}</td><td>
     {%for billItem in bill.bill_item_set.all%}
         {%if forloop.counter > 1%},{%endif%}{{billItem.contact.name}}: {{billItem.amount}}
     {%endfor%}

@@ -18,28 +18,29 @@ $(function(){
         if (flag)
             location.href="/books/" + {{form.id}} + "/deleteItems/?ids="+ids;
     });
-
-    $("input[name='checkAll']").click(function(){
-            $("input[name='checkItem']").attr("checked", this.checked);
-    });
 }
 );
 </script>
 {% endblock %}
+{% block subTitle %}<b><i><um>{{form.name}}</um></i></b>{% endblock %}
 {% block content %}
-<div>名称: {{form.name}}</div>
-<div>描述:{{form.description}}</div>
-<div>所属人:{{form.create_by}}</div>
-<div>创建时间:{{form.create_date}}</div>
-<div>相关人员:{%for contactBook in form.contact_book_set.all%}{{contactBook.contact.name}}&nbsp;&nbsp;{%endfor%}</div>
+<table class="small">
+<tr><td>描述: {{form.description}}</td><td>所属人: {{form.create_by}}</td></tr>
+<tr><td>类型: {{form.book_type}}</td><td>相关人员: {%for contactBook in form.contact_book_set.all%}{{contactBook.contact.name}}&nbsp;{%endfor%}</td></tr>
+<tr><td>总收入: <font color='green'><b>{{amountIn}}</b></font></td><td>总支出: <font color="red"><b>{{amountOut}}</b></font></td></tr>
+<tr><td colspan="2">结余: <font color={%if amount >= 0 %}'green'{%else%}'red'{%endif%}><b>{{amount}}</b></font></td></tr>
 
-<div><a href="{%url 'addItem' form.id %}">添加条目</a></div><input name="remove" type="button" value="删除">
-<table align="center" border='1'>
-    <tr><th><input type="checkbox" name="checkAll">全选</th><th>标题</th><th>描述</th><th>金额</th><th>类型</th><th>涉及人员</th></tr>
-    {%for bill in form.bill_set.all%}
-    <tr style="{%if bill.amount > 0%} color:green; {%else%} color:red; {%endif%}"><td><input type="checkbox" name="checkItem" value="{{bill.id}}"></td><td>{{bill.title}}</td><td>{{bill.description}}</td><td>{{bill.amount}}</td>{%if bill.amount > 0%}<td>收入</td>{%else%}<td>支出</td>{%endif%}<td>
+</table>
+
+<p></p>
+<div><a href="{%url 'addItem' form.id %}" style="margin-right:2%;">添加条目</a><input name="remove" type="button" value="删除" style="margin-left:2%;"></div>
+<p/>
+<table>
+    <tr><th><input type="checkbox" name="checkAll" id="checkAll"><label for="checkAll">全选</label></th><th>标题</th><th>金额</th><th>类型</th><th>日期</th><th>涉及人员</th></tr>
+    {%for bill in bills%}
+    <tr style="{%if bill.amount > 0%} color:green; {%else%} color:red; {%endif%}" title="备注:{{bill.description}}"><td><input type="checkbox" name="checkItem" value="{{bill.id}}"></td><td>{{bill.title}}</td><td>{{bill.amount}}</td>{%if bill.amount > 0%}<td>收入</td>{%else%}<td>支出</td>{%endif%}<td>{{bill.date}}</td><td>
     {%for billItem in bill.bill_item_set.all%}
-        {{billItem.contact.name}}: {{billItem.amount}},
+        {%if forloop.counter > 1%},{%endif%}{{billItem.contact.name}}: {{billItem.amount}}
     {%endfor%}
     </td></tr>
     {%endfor%}

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}list book{% endblock %}
+{% block title %}联系人{% endblock %}
 {% block preload_js %}
 <script tpye="text/javascript">
 $(function(){
@@ -23,17 +23,31 @@ $(function(){
     });
 
     $("input[name='checkAll']").click(function(){
-            $("input[name='checkItem']").attr("checked", this.checked);
+           var flag = $(this).prop("checked");
+           $("input[name='checkItem']").prop("checked", flag);
+           var addFlag = flag?"on":"off";
+           var removeFlag= flag?"off":"on";
+           $("label[name='labelCheckItem']").removeClass("ui-checkbox-" + removeFlag).addClass("ui-checkbox-" + addFlag);
+           $("input[name='checkItem']").checkboxradio("refresh");
     });
 }
 );
 </script>
 {% endblock %}
-{% block content %}<input name="add" type="button" value="添加">&nbsp;&nbsp;&nbsp;&nbsp;<input name="remove" type="button" value="删除">
+{% block navTitle %}联系人{% endblock %}
+{% block subTitle %}联系人列表{% endblock %}
+
+{% block content %}
+    <div>
+    <input name="add" type="button" value="添加" data-inline="true">
+    <input name="remove" type="button" value="删除" data-inline="true">
+    </div>
 <table align="center" border='1'>
-<tr><th><input type="checkbox" name="checkAll">全选</th><th>名称</th><th>描述</th><th>日期</th><th>关联用户</th></tr>
+<tr><th><input type="checkbox" id="checkAll" name="checkAll" data-inline="true" data-mini="true"><label for="checkAll">全选</label></th><th>名称</th><th>描述</th><th>日期</th><th>关联用户</th></tr>
 {%for form in forms%}
-<tr><td><input type="checkbox" name="checkItem" value="{{form.id}}"></td><td>{{form.name}}</td><td>{{form.description}}</td><td>{{form.create_date}}</td><td>{{form.user}}</td>
+<tr><td><input type="checkbox" id="{{form.id}}" name="checkItem" value="{{form.id}}">
+        <label for="{{form.id}}" name="labelCheckItem">&nbsp;</label>
+</td><td>{{form.name}}</td><td>{{form.description}}</td><td>{{form.create_date}}</td><td>{{form.user}}</td>
 
 </tr>
 {%endfor%}

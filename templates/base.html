@@ -20,6 +20,18 @@
     {% endblock %}
   <script>
   $(function() {
+  
+    $("input[name='checkAll']").click(function(){
+           var flag = $(this).prop("checked");
+           $("input[name='checkItem']").prop("checked", flag);
+           var addFlag = flag?"on":"off";
+           var removeFlag= flag?"off":"on";
+           $("label[name='labelCheckItem']").removeClass("ui-checkbox-" + removeFlag).addClass("ui-checkbox-" + addFlag);
+           $("input[name='checkItem']").checkboxradio("refresh");
+    });
+  $('a,form').each(function(){
+    $(this).attr('data-ajax', false);
+  });
 
   });
   </script>

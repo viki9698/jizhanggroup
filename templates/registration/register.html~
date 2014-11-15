@@ -1,47 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}注册{% endblock %}
 {% block css %}
- <style type="text/css">
- #reg{
-    width:100%;
-    font-weight:400;
- }
- #reg div {
-    width:100%;
-    margin-bottom:15px;
-    float:left;
- }
- #reg legend {
-    font-style:italic;
-    color:#434242;
-    font-size: 0.8em;
-    margin-bottom: 20px;
-    float:left;
-    width:100%;
- }
- #reg fieldset {
-    border:1px dotted #cccccc;
-    padding:2%;
-    margin-bottom:20px;
- }
- #reg label {
-    width:40%;
-    float:left;
- }
- #reg input {
-    height:20px;
-    font-size:1em;
-    width:40%;
-    float:right;
- }
- #reg textarea {
-    height:60px;
-    font-size:1em;
-    width:40%;
-    float:right;
- }
- 
- </style>
  {% endblock %}
 {% block subTitle %}注册{% endblock %}
 
@@ -52,18 +11,14 @@
     </p>
 {% endif %}
 <form id="reg" method="post" action="">
-<fieldset>
-<lengend>注册信息</lengend>
 
 {% csrf_token %}
-<div><label for="id_username">用户名:</label> <input id="id_username" placeholder="e.g. Kingwan" maxlength="30" name="username" type="text" required aria-required="true" autofocus /> </div>
-<div><label for="id_password1">密码:</label> <input id="id_password1" maxlength="4096" name="password1" type="password"  required aria-required="true" /> </div>
+<div data-role="fieldcontain"><label for="id_username">用户名:</label> <input id="id_username" placeholder="e.g. Kingwan" maxlength="30" name="username" type="text" required aria-required="true" autofocus /><label for="id_password1">密码:</label> <input id="id_password1" maxlength="4096" name="password1" type="password"  required aria-required="true" /> </div>
 <div><label for="id_password2">密码确认:</label> <input id="id_password2" maxlength="4096" name="password2" type="password"  required aria-required="true"  /> </div>
 <div><label for="id_last_name">姓:</label> <input id="id_last_name" maxlength="30" name="last_name" type="text" /> </div>
 <div><label for="id_first_name">名:</label> <input id="id_first_name" maxlength="30" name="first_name" type="text"/> </div>
 <div><label for="id_email">Email address:</label> <input id="id_email" maxlength="75" name="email" type="email"  required aria-required="true"  placeholder="example@hotmail.com"/></div>
  <div><input type="submit" id="submit" value="注册"></div>
 </form>
-</fieldset>
 {% endblock %}
 
