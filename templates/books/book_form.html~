@@ -17,14 +17,20 @@ $(function(){
             }
             i++;
         });
+        if (ids == "")
+        {
+            alert("请至少为记账簿选择一个相关人员。");
+            return false;
+        }
         $("input[name='contacts']").val(ids);
-        alert($("input[name='contacts']").val());
     })
 
 }
 );
 </script>
 {% endblock %}
+{% block subTitle %}新建记账簿{% endblock %}
+
 {% block content %}
 {% if form.errors %}
     <p style="color:red;"
@@ -36,12 +42,12 @@ $(function(){
 
     <table>
         {{form.as_table}}
-        <tr><th><label for="id_relatedContacts">相关人员:</label></th>
-        <td><select multiple="multiple" id="id_relatedContacts" name="relatedContacts" style="width:100%;">
+        <tr><th><label for="id_relatedContacts" class="select">相关人员:</label></th>
+        <td><select multiple="multiple" id="id_relatedContacts" name="relatedContacts" data-native-menu="false">
         {%for item in contacts%}
 <option value="{{item.id}}">{{item.name}}</option>
 {%endfor%}
-</select></td></tr>
+</select> <a href="{%url 'contacts'%}">管理我的联系人</a></td></tr>
 
     </table>
     <input type="hidden" name="contacts">

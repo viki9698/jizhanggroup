@@ -29,6 +29,7 @@ body {
         border-spacing:1px;  
         padd:expression(this.cellPadding=0);  
       }
+
       table th {
         background-color: silver;
         border: 1px outset silver;
@@ -40,6 +41,7 @@ body {
         text-align: center;
         height:1.4em;
       }
+
       table td:first-child {
         text-align: center;
       }

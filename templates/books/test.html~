@@ -1,0 +1,182 @@
+
+
+<!DOCTYPE html>
+<html lang="zh" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0" />
+    <title>list book - 记账簿</title>
+	<link rel="shortcut icon" type="image/x-icon" href="/static/books/css/images/favicon.ico" />
+<link href="/static/books/css/style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.mobile/1.4.2/jquery.mobile-1.4.2.min.css"/>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.1.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+
+<script src="/static/books/js/functions.js" type="text/javascript"></script>
+    
+    
+
+    
+<script tpye="text/javascript">
+$(function(){
+    $("input[name='save']").click(
+    function(){
+        var ids = "";
+        var i = 0;
+        $("#id_relatedContacts option:selected").each(function()
+        {
+            if (i==0)
+            {
+                ids = $(this).val();
+            } else {
+                ids +="," + $(this).val();
+            }
+            i++;
+        });
+        if (ids == "")
+        {
+            alert("请至少为记账簿选择一个相关人员。");
+            return false;
+        }
+        $("input[name='contacts']").val(ids);
+    })
+
+}
+);
+</script>
+
+  <script>
+  $(function() {
+  
+    $("input[name='checkAll']").click(function(){
+           var flag = $(this).prop("checked");
+           $("input[name='checkItem']").prop("checked", flag);
+           var addFlag = flag?"on":"off";
+           var removeFlag= flag?"off":"on";
+           $("label[name='labelCheckItem']").removeClass("ui-checkbox-" + removeFlag).addClass("ui-checkbox-" + addFlag);
+           $("input[name='checkItem']").checkboxradio("refresh");
+    });
+  $('a,form').each(function(){
+    $(this).attr('data-ajax', false);
+  });
+
+  });
+  </script>
+    
+
+
+</head>
+<body>
+	<!-- wraper -->
+	<div id="wrapper">
+		<!-- shell -->
+		<div class="shell">
+			<!-- container -->
+			<div class="container">
+				<!-- header -->
+
+				<!-- end of header -->
+				<!-- navigation -->
+				<nav id="navigation">
+					<a href="#" class="nav-btn">首页<span class="arr"></span></a>
+					<ul>
+
+            <li><a href="/index/" data-ajax="false">首页</a></li>
+            <li><a href="/account/" data-ajax="false">账号管理</a></li>
+            <li><a href="/books/" data-ajax="false">记账簿</a></li>
+            <li><a href="/contacts/" data-ajax="false">联系人</a></li>
+					<div id="userDiv">
+            
+            <li>dd dd, 欢迎您<a href="/logout/" class="clean" data-ajax="false">注销</a></li>
+            
+					</div></ul>
+				</nav>
+				<!-- end of navigation -->
+
+				<!-- main -->
+				<div class="main">
+											<h2>新建记账簿</h2>
+					<section class="post">
+
+						<div class="">
+
+							 
+          
+          
+          
+        
+
+        
+
+<form  method="post" action="">
+<input type='hidden' name='csrfmiddlewaretoken' value='VN84nxvsfVKtJ1W542XM0bs2jyvHFgXF' />
+
+    <table>
+        <tr><th><label for="id_name">Name:</label></th><td><input id="id_name" name="name" type="text" /></td></tr>
+<tr><th><label for="id_description">Description:</label></th><td><input id="id_description" name="description" type="text" /></td></tr>
+<tr><th><label for="id_book_type">Book type:</label></th><td><select data-native-menu="false" multiple="multiple" id="id_book_type" name="book_type">
+<option value="" selected="selected">---------</option>
+<option value="5302669702856704">AA组</option>
+<option value="5865619656278016">记账组</option>
+</select></td></tr>
+        <tr><th><label for="id_relatedContacts">相关人员:</label></th>
+        <td><select id="id_relatedContacts" name="relatedContacts" multiple="multiple">
+        
+<option value="4709895496531968">test3</option>
+
+<option value="5799236641751040">test2</option>
+
+</select> <a href="/contacts/">管理我的联系人</a></td></tr>
+
+    </table>
+    <input type="hidden" name="contacts">
+    <input type="submit" value="添加" name="save">
+</form>
+
+						</div>
+						<div class="cl">&nbsp;</div>
+					</section>
+
+				</div>
+				<!-- end of main -->
+<!--				<div class="socials">
+					<div class="socials-inner">
+						<h3>Follow us</h3>
+						<ul>
+							<li><a href="#" class="facebook-ico"><span></span>Facebook</a></li>
+							<li><a href="#" class="twitter-ico"><span></span>Twitter</a></li>
+							<li><a href="#" class="rss-feed-ico"><span></span>Rss-feed</a></li>
+							<li><a href="#" class="myspace-ico"><span></span>myspace</a></li>
+							<li><a href="#" class="john-doe-123-ico"><span></span>john.doe.123</a></li>
+						</ul>
+						<div class="cl">&nbsp;</div>
+					</div>
+				</div>-->
+				<div id="footer">
+					<!-- end of footer-cols -->
+					<div class="footer-bottom">
+						<nav class="footer-nav">
+					<ul>
+            <li><a href="/index/" data-ajax="false">首页</a></li>
+            <li><a href="/account/" data-ajax="false">账号管理</a></li>
+            <li><a href="/books/" data-ajax="false">记账簿</a></li>
+            <li><a href="/contacts/" data-ajax="false">联系人</a></li>
+            
+            <li><a href="/logout/" class="clean" data-ajax="false">注销</a></li>
+            
+					</ul>
+						</nav>
+						<p class="copy">&copy; Copyright 2014  <strong>Design by Rui.</strong></p>
+						<div class="cl">&nbsp;</div>
+					</div>
+				</div>
+			</div>
+			<!-- end of container -->	
+		</div>
+		<!-- end of shell -->	
+	</div>
+	<!-- end of wrapper -->
+</body>
+</html>
+

@@ -37,12 +37,15 @@ $(function(){
 </table>
 
 <p></p>
-<div><a href="{%url 'addItem_aa' form.id %}" style="margin-right:2%;">添加条目</a><input name="balance" type="button" value="账单已结清" style="margin-left:2%;margin-right:2%;"><input name="remove" type="button" value="删除" style="margin-left:2%;"></div>
+<div><a href="{%url 'addItem_aa' form.id %}" style="margin-right:2%;" data-role="button" data-inline="true">添加条目</a><input name="balance" type="button" value="账单已结清" data-inline="true" style="margin-left:2%;margin-right:2%;"><input name="remove" type="button" value="删除" style="margin-left:2%;" data-inline="true"></div>
 <p/>
-<table>
+<table  >
+<thead>
     <tr><th><input type="checkbox" name="checkAll" id="checkAll"><label for="checkAll">全选</label></th><th>标题</th><th>金额</th><th>日期</th><th>垫付人</th><th>涉及人</th></tr>
+</thead>
+<tbody>
     {%for bill in bills%}
-    <tr title="备注:{{bill.description}}"><td><input type="checkbox" name="checkItem" value="{{bill.id}}"></td><td>{{bill.title}}</td><td>{{bill.amount}}</td>
+    <tr title="备注:{{bill.description}}"><td><input type="checkbox" name="checkItem" value="{{bill.id}}" id="{{bill.id}}"><label for="{{bill.id}}">&nbsp;</label></td><td>{{bill.title}}</td><td>{{bill.amount}}</td>
  <td>{{bill.date}}</td>
   <td style="color:green;">{%for billItem in bill.bill_item_set.all%}
         {%if billItem.amount > 0%}
@@ -58,6 +61,7 @@ $(function(){
     {%endfor%}
     </td></tr>
     {%endfor%}
+ </tbody>
 </table>
 
 

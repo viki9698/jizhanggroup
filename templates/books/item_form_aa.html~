@@ -7,25 +7,25 @@ $(function(){
         autoPopulateSubAmountInput();
     });
     $("input[name='contact']").click(function(){
-        if (!$(this).attr("checked"))
+        if (!$(this).prop("checked"))
         {
             $("input[name='subCount_" + $(this).val() + "']").val("");
-            $("input[name='subCount_" + $(this).val() + "']").attr("disabled","disabled");
+            $("input[name='subCount_" + $(this).val() + "']").textinput('disable');
         } else 
         {
-            $("input[name='subCount_" + $(this).val() + "']").removeAttr("disabled");
+            $("input[name='subCount_" + $(this).val() + "']").textinput("enable");
         }
         autoPopulateSubAmountInput();
     });
     
     $("input[name='contact0']").click(function(){
-        if (!$(this).attr("checked"))
+        if (!$(this).prop("checked"))
         {
             $("input[name='subCount0_" + $(this).val() + "']").val("");
-            $("input[name='subCount0_" + $(this).val() + "']").attr("disabled","disabled");
+            $("input[name='subCount0_" + $(this).val() + "']").textinput('disable');
         } else 
         {
-            $("input[name='subCount0_" + $(this).val() + "']").removeAttr("disabled");
+            $("input[name='subCount0_" + $(this).val() + "']").textinput("enable");
         }
     });
     
@@ -119,18 +119,32 @@ $(function(){
 <table>
 <tr><th><label for="id_title">名称:</label></th><td><input id="id_title" name="title" type="text" required /></td></tr>
 <tr><th><label for="id_description">描述:</label></th><td><input id="id_description" name="description" type="text" /></td></tr>
-<tr><th><label for="id_contact_0">垫付人:</label></th><td><ul>
+<tr><th><label for="id_contact_0">垫付人:</label></th><td>
+<ul data-role="listview" data-insert="true">
 {%for contact in contacts%}
-<p>
-<label for="id_contact0_{{ forloop.counter }}"><input id="id_contact0_{{ forloop.counter }}" name="contact0" type="checkbox" value="{{contact.id}}"/>{{contact.name}}</label>&nbsp;<input type="number" step="0.01" name="subCount0_{{contact.id}}" style="width:80px;" disabled="disabled"></p>
-
+<li data-role="fieldcontain" class="ui-grid-a">
+<div  class="ui-block-a">
+<input id="id_contact0_{{ forloop.counter }}" name="contact0" type="checkbox" value="{{contact.id}}" data-inline="true"/>
+<label for="id_contact0_{{ forloop.counter }}" style="height:9px;">{{contact.name}}</label>
+</div>
+<div class="ui-block-b">
+<input type="number" disabled="disabled" step="0.01" name="subCount0_{{contact.id}}" data-mini="false"/>
+</div>
+</li>
 {%endfor%}
 </ul></td></tr>
 <tr><th><label for="id_date">日期:</label></th><td><input id="id_date" name="date" type="date" required /></td></tr>
-<tr><th><label for="id_contact_0">相关人员:</label></th><td><ul>
+<tr><th><label for="id_contact_0">相关人员:</label></th><td>
+<ul data-role="listview" data-insert="true">
 {%for contact in contacts%}
-<p>
-<label for="id_contact_{{ forloop.counter }}"><input id="id_contact_{{ forloop.counter }}" name="contact" type="checkbox" value="{{contact.id}}"/>{{contact.name}}</label>&nbsp;<input type="number" step="0.01" name="subCount_{{contact.id}}" style="width:80px;" disabled="disabled"></p>
+<li data-role="fieldcontain" class="ui-grid-a">
+<div  class="ui-block-a">
+<label for="id_contact_{{ forloop.counter }}"><input id="id_contact_{{ forloop.counter }}" name="contact" type="checkbox" value="{{contact.id}}"/>{{contact.name}}</label>
+</div>
+<div class="ui-block-b">
+<input type="number" step="0.01" name="subCount_{{contact.id}}" style="width:80px;" disabled="disabled">
+</div>
+</li>
 
 {%endfor%}
 </ul></td></tr>
