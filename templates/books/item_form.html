@@ -80,15 +80,20 @@ $(function(){
 
     <table>
         {{form.as_table}}
-<tr><th><label for="id_contact_0">相关人员:</label></th><td><ul>
+<tr><th><label for="id_contact_0">相关人员:</label></th><td>
+
+<ul data-role="listview">
 {%for contact in contacts%}
-<p>
-<label for="id_contact_{{ forloop.counter }}"><input id="id_contact_{{ forloop.counter }}" name="contact" type="checkbox" value="{{contact.id}}"/>{{contact.name}}</label>&nbsp;<input type="number" step="0.01" name="subCount_{{contact.id}}" style="width:80px;"></p>
+<li data-role="fieldcontain" class="ui-grid-a">
+<div class="ui-block-a" style="width:20%;">
+    <input id="id_contact_{{ forloop.counter }}" name="contact" type="checkbox" value="{{contact.id}}"/><label for="id_contact_{{ forloop.counter }}" style="height:9px;">{{contact.name}}</label>
+</div>
+<div class="ui-block-b"><input type="number" step="0.01" name="subCount_{{contact.id}}" ></div></li>
 
 {%endfor%}
 </ul></td></tr>
     </table>
-    <input type="submit" name="save" value="添加">
+    <input type="submit" name="save" value="添加" data-inline="true">
 <input type="hidden" name="contactIds">
 </form>
 

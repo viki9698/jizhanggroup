@@ -19,19 +19,23 @@
         Please correct the login form
     </p>
 {% endif %}
-<center>
-<form  method="post" action="" id="reg" style="max-width:500px;text-align:center;">
+
+<form  method="post" action="" id="reg" style="max-width:500px;margin:0 auto;">
 {% csrf_token %}
-      {{ form.as_p}}
+<ui data-role="listview">
+<li data-role="fieldcontain" class="ui-hide-label">
+<label for="id_username" class="loginLabel">用户名:</label><input id="id_username" maxlength="254" name="username" type="text" placeholder="用户名" /></li>
+<li data-role="fieldcontain">
+<label for="id_password" class="loginLabel">密码:</label><input id="id_password" maxlength="4096" name="password" type="password" placeholder="密码" /></li>
       
-      <fieldset class="ui-grid-a" >
+      <li class="ui-grid-a">
         <div class="ui-block-a" >
-      <input type="submit"  value="登录" style="margin-right:2%;">
+      <input type="submit"  value="登录" >
         </div>
         <div class="ui-block-b">
-      <a href="/register/" style="margin-left:2%;" data-ajax="false" data-role="button">注册</a>
+      <a href="/register/"  data-ajax="false" data-role="button">注册</a>
         </div>
-      </fieldset>
+      </li>
       <input type="hidden" name="firstName"/>
       <br><br>
       <font size="1em">使用合作网站账号登录记账簿：</font><br><br><span id="qqLoginBtn"></span>
@@ -71,6 +75,5 @@
 );
 </script>
 </form>
-</center>
 {% endblock %}
 

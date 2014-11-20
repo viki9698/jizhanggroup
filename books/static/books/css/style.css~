@@ -29,7 +29,7 @@ body {
         border-spacing:1px;  
         padd:expression(this.cellPadding=0);  
       }
-      /**
+
       table th {
         background-color: silver;
         border: 1px outset silver;
@@ -41,7 +41,7 @@ body {
         text-align: center;
         height:1.4em;
       }
-      **/
+
       table td:first-child {
         text-align: center;
       }
@@ -224,7 +224,7 @@ article, aside, details, footer, header, menu, nav, section { display: block; }
 	.main .post { padding-left: 20px ;  }
 	.main .post .video-holder { width: 435px; height: 245px; float: none; display: block;  margin-right: 0px; margin-bottom: 20px;  }
 	.main .post-cnt { float: none; display: block;  width: 100%; }
-
+.main .loginLabel { display:none;}
 	.socials-inner { padding-left: 70px; }
 	.footer-bottom { height: 58px; }
 	.footer-cols { padding-left: 40px; }
@@ -272,6 +272,11 @@ article, aside, details, footer, header, menu, nav, section { display: block; }
 	.main .post  { padding-top: 7px; padding-left: 20px;   }
 	.main .post-cnt { float: none; display: block;  width: 100%; }
 	.main .post-cnt p strong { display: block; padding-bottom: 12px; }
+	.main .loginLabel { 
+	
+	display:none;
+	
+	}
 
 	.testimonial h2 { font-size: 21px; }
 	.testimonial p.author { text-align: center; }
@@ -293,10 +298,3 @@ article, aside, details, footer, header, menu, nav, section { display: block; }
 	.footer-bottom p.copy span { display: none; }
 }
 
-@media only screen and ( max-width: 767px) and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-resolution: 240dpi)  { 
-
-	#navigation a.nav-btn span.arr { background: url(images/nav-arr@2x.png) no-repeat 0 0; -webkit-background-size: 13px 18px; -moz-background-size: 13px 18px; background-size: 13px 18px; }
-	#navigation a.nav-btn span.arr.active { background: url(images/nav-arr@2x.png) no-repeat 0 bottom; -webkit-background-size: 13px 18px; -moz-background-size: 13px 18px; background-size: 13px 18px; }
-
-	#logo a { background: url(images/logo@2x.png) no-repeat 0 0; -webkit-background-size: 81px 33px; -moz-background-size: 81px 33px; background-size: 81px 33px;  }
-}
