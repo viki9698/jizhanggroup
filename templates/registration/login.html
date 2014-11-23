@@ -15,16 +15,16 @@
 
 {% block content %}
 {% if form.errors %}
-    <p style="color:red;"
-        Please correct the login form
-    </p>
+    <div style="color:red;">
+        {{form.errors}}
+    </div>
 {% endif %}
 
 <form  method="post" action="" id="reg" style="max-width:500px;margin:0 auto;">
 {% csrf_token %}
 <ui data-role="listview">
 <li data-role="fieldcontain">
-<label for="id_username" class="loginLabel">用户名:</label><input id="id_username" maxlength="254" name="username" type="text" placeholder="用户名" /></li>
+<label for="id_username" class="loginLabel">用户名:</label><input id="id_username" maxlength="254" name="username" type="text" placeholder="用户名" value="{% if form.username.value %}{{form.username.value}}{%endif%}"/></li>
 <li data-role="fieldcontain">
 <label for="id_password" class="loginLabel">密码:</label><input id="id_password" maxlength="4096" name="password" type="password" placeholder="密码" /></li>
       

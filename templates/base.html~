@@ -29,7 +29,7 @@
            $("label[name='labelCheckItem']").removeClass("ui-checkbox-" + removeFlag).addClass("ui-checkbox-" + addFlag);
            $("input[name='checkItem']").checkboxradio("refresh");
     });
-  $('a').each(function(){
+  $('form').each(function(){
     $(this).attr('data-ajax', false);
   });
 
@@ -105,26 +105,26 @@
 						<div class="cl">&nbsp;</div>
 					</div>
 				</div>-->
-				<div id="footer">
+				<footer data-role="footer">
 					<!-- end of footer-cols -->
-					<div class="footer-bottom">
-						<nav class="footer-nav">
-					<ul>
-            <li><a href="{%url 'index' %}" data-ajax="false">首页</a></li>
-            <li><a href="{%url 'account' %}" data-ajax="false">账号管理</a></li>
-            <li><a href="{%url 'books' %}" data-ajax="false">记账簿</a></li>
-            <li><a href="{%url 'contacts'%}" data-ajax="false">联系人</a></li>
-            {%if request.user.is_authenticated%}
-            <li><a href="{%url 'logout' %}" class="clean" data-ajax="false">注销</a></li>
-            {%else%}
-            <li><a href="{%url 'login' %}" data-ajax="false">登录</a></li>
-            {%endif%}
-					</ul>
+					<div >
+						<nav  data-role="navbar" class="navmain">
+			<ul>
+                <li><a href="{%url 'index' %}" data-ajax="false">首页</a></li>
+                <li><a href="{%url 'account' %}" data-ajax="false">账号管理</a></li>
+                <li><a href="{%url 'books' %}" data-ajax="false">记账簿</a></li>
+                <li><a href="{%url 'contacts'%}" data-ajax="false">联系人</a></li>
+                {%if request.user.is_authenticated%}
+                <li><a href="{%url 'logout' %}" class="clean" data-ajax="false">注销</a></li>
+                {%else%}
+                <li><a href="{%url 'login' %}" data-ajax="false">登录</a></li>
+                {%endif%}
+			</ul>
 						</nav>
 						<p class="copy">&copy; Copyright 2014  <strong>Design by Rui.</strong></p>
 						<div class="cl">&nbsp;</div>
 					</div>
-				</div>
+				</footer>
 			</div>
 			<!-- end of container -->	
 		</div>

@@ -6,9 +6,9 @@
 
 {% block content %}
 {% if form.errors %}
-    <p style="color:red;"
-        Please correct the login form
-    </p>
+    <div style="color:red;">
+        {{form.errors}}
+    </div>
 {% endif %}
 <form id="reg" method="post" action="">
 
@@ -16,7 +16,7 @@
 <ul data-role="listview" data-insert="true">
     <li data-role="fieldcontain">
         <label for="id_username">用户名:</label> 
-        <input id="id_username" placeholder="e.g. Kingwan" maxlength="30" name="username" type="text" required aria-required="true" autofocus />
+        <input id="id_username" placeholder="e.g. Kingwan" maxlength="30" name="username" type="text" required aria-required="true" value="{%if form.username.value %}{{form.username.value}}{%endif%}" autofocus/>
     </li>
     <li data-role="fieldcontain">
         <label for="id_password1">密码:</label> 
@@ -28,15 +28,15 @@
     </li>
     <li data-role="fieldcontain">
         <label for="id_last_name">姓:</label> 
-        <input id="id_last_name" maxlength="30" name="last_name" type="text" /> 
+        <input id="id_last_name" maxlength="30" name="last_name" type="text"  value="{%if form.last_name.value %}{{form.last_name.value}}{%endif%}"/> 
     </li>
     <li data-role="fieldcontain">
         <label for="id_first_name">名:</label> 
-        <input id="id_first_name" maxlength="30" name="first_name" type="text"/> 
+        <input id="id_first_name" maxlength="30" name="first_name" type="text"  value="{%if form.first_name.value %}{{form.first_name.value}}{%endif%}"/> 
     </li>
     <li data-role="fieldcontain">
-        <label for="id_email">Email address:</label> 
-        <input id="id_email" maxlength="75" name="email" type="email"  required aria-required="true"  placeholder="example@hotmail.com"/>
+        <label for="id_email">Email地址:</label> 
+        <input id="id_email" maxlength="75" name="email" type="email"  required aria-required="true"  placeholder="example@hotmail.com"  value="{%if form.email.value %}{{form.email.value}}{%endif%}"/>
     </li>
     <li data-role="fieldcontain">
         <input type="submit" id="submit" value="注册">
